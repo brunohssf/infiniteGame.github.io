@@ -1,1 +1,2 @@
-var player = {}
+var player = {};
+let w = window;
