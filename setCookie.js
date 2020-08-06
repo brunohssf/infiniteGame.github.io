@@ -21,13 +21,13 @@ function getCookie(cname) {
 }
 
 function checkCookie() {
-  var user = getCookie("username");
+  var user = getCookie("infiniteGame");
   if (user != "") {
-    alert("Welcome again " + user);
+    user = w.player
   } else {
     user = prompt("Please enter your name:", "");
     if (user != "" && user != null) {
-      setCookie("username", user, 365);
+      setCookie("infiniteGame", user, 365);
     }
   }
 }
