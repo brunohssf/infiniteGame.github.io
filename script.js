@@ -9,14 +9,14 @@ function makerBuilder(i) {
 }
 
 function buildGameMap() {
-	if (w.makers.length < dimNum-1) {
+	if (w.player.makers.length < dimNum-1) {
 		for (i = 0; i < dimNum; i++){
-			w.makers.push(makerBuilder(i));
+			w.player.makers.push(makerBuilder(i));
 			}
 		}
 	w.body = '<h1 id="score">Atoms: 0</h1><h6 id="scoreSpeed">Speed: 0</h6>';
 	w.body = w.body + '<button onClick="buyAtom();" type="button">Make Atom</button>';
-	for (i = 0; i < w.makers.length; i++){
+	for (i = 0; i < w.player.makers.length; i++){
 		w.body = w.body + '<button id="maker'+i+'" class="00%" onClick="buyAtomMaker('+i+');" ><div id="maker'+i+'Bar" class="progressBar"></div>Make Atom Maker ('+w.makers[i].cost+')</div>';
 
 	}
@@ -25,8 +25,8 @@ function buildGameMap() {
 	w.body = w.body + '<button id="prestige" onClick="prestige();" type="button">Prestige</button>';
 	w.body = w.body + '<h3 id="gameTime">Tempo: 00</h3>';
 	document.getElementById("game").innerHTML = body;
-	console.log(w.gameScore);
-	console.log(w.makers[0].mult);
+	console.log(w.player.gameScore);
+	console.log(w.player.makers[0].mult);
 	gameLoop();
 }
 
@@ -53,32 +53,29 @@ function gameLoop() {
 }
 
 function scoreLoop(tick) {
-	w.scoreSpeed = w.makers[0].amount * w.makers[0].mult;
-	w.gameScore += w.makers[0].amount * w.makers[0].mult * tick;
+	w.scoreSpeed = w.player.makers[0].amount * w.player.makers[0].mult;
+	w.gameScore += w.player.makers[0].amount * w.player.makers[0].mult * tick;
 	for (i = 1; i < makers.length; i++)	{
 			w.makers[i-1].amount += w.makers[i].amount * w.makers[i].mult * tick
 		}
 }
 
 function updateGame() {
-	document.getElementById("score").innerHTML = 'Atoms: ' + Math.round(w.gameScore);
-	document.getElementById("scoreSpeed").innerHTML = 'Speed: ' + Math.round(w.scoreSpeed*100)/100 + '/s';
+	document.getElementById("score").innerHTML = 'Atoms: ' + Math.round(w.player.gameScore);
+	document.getElementById("scoreSpeed").innerHTML = 'Speed: ' + Math.round(w.player.scoreSpeed*100)/100 + '/s';
 	for (i = 0; i < w.makers.length; i++){
-		bText = 'Make Atom Maker (' + Math.round(w.makers[i].cost*100)/100;
-		bText += ') Amount: ' + Math.round(w.makers[i].amount);
-		if (i+1 < w.makers.length){
-			bText += ') Speed: ' + Math.round(w.makers[i+1].amount * w.makers[i+1].mult*100)/100 + '/s';
+		bText = 'Make Atom Maker (' + Math.round(w.player.makers[i].cost*100)/100;
+		bText += ') Amount: ' + Math.round(w.player.makers[i].amount);
+		if (i+1 < w.player.makers.length){
+			bText += ') Speed: ' + Math.round(w.player.makers[i+1].amount * w.player.makers[i+1].mult*100)/100 + '/s';
 		}
 		document.getElementById("maker"+i).innerHTML = bText;
-		document.getElementById("maker"+i).classList = w.makers[i].bought+"0%";
+		document.getElementById("maker"+i).classList = w.player.makers[i].bought+"0%";
 	}
 	saveState();
 }
 
 function saveState() {
-	w.player.score = w.gameScore;
-	w.player.scoreSpeed = w.scoreSpeed;
-	w.player.makers = w.makers;
     user = JSON.stringify(w.player);
     setCookie("infiniteGame", user, 365);
 }
@@ -88,14 +85,14 @@ function buyAtom() {
 }
 
 function buyAtomMaker(i) {
-	if (w.gameScore >= w.makers[i].cost){
-		w.gameScore -= w.makers[i].cost;
-		w.makers[i].amount ++;
-		w.makers[i].bought ++;
-		w.makers[i].cost *= 1.25 + i;
-		if (w.makers[i].bought == 10) {
-			w.makers[i].mult *= 2;
-			w.makers[i].bought = 0;
+	if (w.player.gameScore >= w.player.makers[i].cost){
+		w.player.gameScore -= w.player.makers[i].cost;
+		w.player.makers[i].amount ++;
+		w.player.makers[i].bought ++;
+		w.player.makers[i].cost *= 1.25 + i;
+		if (w.player.makers[i].bought == 10) {
+			w.player.makers[i].mult *= 2;
+			w.player.makers[i].bought = 0;
 		}
 /*		console.log(w.gameScore);
 		console.log(w.makers[i].cost);
@@ -106,8 +103,8 @@ function buyAtomMaker(i) {
 }
 
 function buyMax() {
-	for (i = w.makers.length-1; i > -1; i--) {
-		while (w.makers[i].cost < w.gameScore) {
+	for (i = w.player.makers.length-1; i > -1; i--) {
+		while (w.player.makers[i].cost < w.player.gameScore) {
 			buyAtomMaker(i);
 		}
 	}
@@ -115,10 +112,10 @@ function buyMax() {
 
 function prestige() {
 	for (i = 0; i < w.makers.length; i ++) {
-		w.makers[i].amount = 0;
-		w.makers[i].bought = 0;
-		w.makers[i].cost = 10 + 1000 * i ** (2 + 3 * i * i);
-		w.makers[i].mult *= 1.1;
+		w.player.makers[i].amount = 0;
+		w.player.makers[i].bought = 0;
+		w.player.makers[i].cost = 10 + 1000 * i ** (2 + 3 * i * i);
+		w.player.makers[i].mult *= 1.1;
 	}
 }
 
