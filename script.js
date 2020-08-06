@@ -9,8 +9,10 @@ function makerBuilder(i) {
 }
 
 function buildGameMap() {
-	for (i = 0; i < dimNum; i++){
-		w.makers.push(makerBuilder(i));
+	if (w.makers.length < dimNum-1) {
+		for (i = 0; i < dimNum; i++){
+			w.makers.push(makerBuilder(i));
+			}
 		}
 	w.body = '<h1 id="score">Atoms: 0</h1><h6 id="scoreSpeed">Speed: 0</h6>';
 	w.body = w.body + '<button onClick="buyAtom();" type="button">Make Atom</button>';
