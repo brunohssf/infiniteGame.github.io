@@ -80,7 +80,7 @@ function saveState() {
 	w.player.scoreSpeed = w.scoreSpeed;
 	w.player.makers = w.makers;
     user = JSON.stringify(w.player);
-    setCookie("infiniteGame", user, 365);*/
+    setCookie("infiniteGame", user, 365);
 }
 
 function buyAtom() {
