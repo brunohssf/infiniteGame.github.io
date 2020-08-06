@@ -1,4 +1,4 @@
-var player, makers = [], lastTick = Date.now(), tickCount = 0;
+var player = {}, makers = [], lastTick = Date.now(), tickCount = 0;
 var secondsPassed = 0, gameScore = 200, scoreSpeed = 0, oldScore = 0, body;
 let oldTimeStamp, timeStamp = new Date().getTime(), w = window, gameTime = 0;
 var timeFactor = 1/1000;
@@ -78,6 +78,13 @@ function updateGame() {
 		document.getElementById("maker"+i).classList.remove((w.makers[i].bought-1)+"0%");
 		document.getElementById("maker"+i).classList.add((w.makers[i].bought)+"0%");
 	}
+	updatePlayer();
+}
+
+function updatePlayer() {
+	w.player.score = w.gameScore;
+	w.player.scoreSpeed = w.scoreSpeed;
+	w.player.makers = w.makers;
 }
 
 function buyAtom() {
