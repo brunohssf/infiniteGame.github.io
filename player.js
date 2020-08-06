@@ -6,4 +6,4 @@ var timeFactor = 1/1000;
 var dimNum = 8;
 var logging = new Boolean(true);
 
-makers = player.makers;
+w.makers = player.makers;
