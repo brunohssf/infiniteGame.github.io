@@ -5,5 +5,3 @@ let oldTimeStamp, timeStamp = new Date().getTime(), gameTime = 0;
 var timeFactor = 1/1000;
 var dimNum = 8;
 var logging = new Boolean(true);
-
-w.makers = player.makers;

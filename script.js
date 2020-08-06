@@ -81,7 +81,7 @@ function updatePlayer() {
 	w.player.scoreSpeed = w.scoreSpeed;
 	w.player.makers = w.makers;
     user = w.player;
-    setCookie("infiniteGame", user, 365);
+    /*setCookie("infiniteGame", toString(user), 365);*/
 }
 
 function buyAtom() {

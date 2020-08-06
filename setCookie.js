@@ -33,4 +33,4 @@ function checkCookie() {
 }
 
 
-checkCookie()
+/*checkCookie()*/
