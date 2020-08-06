@@ -31,3 +31,6 @@ function checkCookie() {
     }
   }
 }
+
+
+checkCookie()
