@@ -17,7 +17,7 @@ function buildGameMap() {
 	w.body = '<h1 id="score">Atoms: 0</h1><h6 id="scoreSpeed">Speed: 0</h6>';
 	w.body = w.body + '<button onClick="buyAtom();" type="button">Make Atom</button>';
 	for (i = 0; i < w.player.makers.length; i++){
-		w.body = w.body + '<button id="maker'+i+'" class="00%" onClick="buyAtomMaker('+i+');" ><div id="maker'+i+'Bar" class="progressBar"></div>Make Atom Maker ('+w.makers[i].cost+')</div>';
+		w.body = w.body + '<button id="maker'+i+'" class="00%" onClick="buyAtomMaker('+i+');" ><div id="maker'+i+'Bar" class="progressBar"></div>Make Atom Maker ('+w.player.makers[i].cost+')</div>';
 
 	}
 	w.body = w.body + '<button id="buyMax" onClick="buyMax();" type="button">Buy Max!</button>';
@@ -53,17 +53,17 @@ function gameLoop() {
 }
 
 function scoreLoop(tick) {
-	w.scoreSpeed = w.player.makers[0].amount * w.player.makers[0].mult;
-	w.gameScore += w.player.makers[0].amount * w.player.makers[0].mult * tick;
-	for (i = 1; i < makers.length; i++)	{
-			w.makers[i-1].amount += w.makers[i].amount * w.makers[i].mult * tick
+	w.player.scoreSpeed = w.player.makers[0].amount * w.player.makers[0].mult;
+	w.player.gameScore += w.player.makers[0].amount * w.player.makers[0].mult * tick;
+	for (i = 1; i < w.player.makers.length; i++)	{
+			w.player.makers[i-1].amount += w.player.makers[i].amount * w.player.makers[i].mult * tick
 		}
 }
 
 function updateGame() {
 	document.getElementById("score").innerHTML = 'Atoms: ' + Math.round(w.player.gameScore);
 	document.getElementById("scoreSpeed").innerHTML = 'Speed: ' + Math.round(w.player.scoreSpeed*100)/100 + '/s';
-	for (i = 0; i < w.makers.length; i++){
+	for (i = 0; i < w.player.makers.length; i++){
 		bText = 'Make Atom Maker (' + Math.round(w.player.makers[i].cost*100)/100;
 		bText += ') Amount: ' + Math.round(w.player.makers[i].amount);
 		if (i+1 < w.player.makers.length){
