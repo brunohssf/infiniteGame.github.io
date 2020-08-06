@@ -1,3 +1,14 @@
+let w = window;
+let w.player = {}, lastTick = Date.now(), tickCount = 0;
+var secondsPassed = 0, w.player.gameScore = 200, w.player.scoreSpeed = 0, w.player.oldScore = 0, body;
+var oldTimeStamp, timeStamp = new Date().getTime(), gameTime = 0;
+var timeFactor = 1/1000;
+var dimNum = 8;
+var logging = new Boolean(true);
+
+w.player.makers = [];
+w.player.user = "name";
+
 function makerBuilder(i) {
 	let maker = {
 	cost: 10 + 10000 * i ** (2 + 3 * i * i) - 9000 * i,
@@ -135,5 +146,44 @@ Number.prototype.formatHour = function () {
     if (seconds < 10) {seconds = "0"+seconds;}
     return hours+':'+minutes+':'+seconds;
 }
+
+function setCookie(cname, cvalue, exdays) {
+	var d = new Date();
+	d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+	var expires = "expires="+d.toUTCString();
+	document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+}
+
+function getCookie(cname) {
+	var name = cname + "=";
+	var ca = document.cookie.split(';');
+	for(var i = 0; i < ca.length; i++) {
+		var c = ca[i];
+		while (c.charAt(0) == ' ') {
+			c = c.substring(1);
+		}
+		if (c.indexOf(name) == 0) {
+		return c.substring(name.length, c.length);
+		}
+	}
+	return "";
+}
+
+function checkCookie() {
+	var found = getCookie("infiniteGame");
+	if (found != "") {
+		player.value = JSON.parse(found)
+	} else {
+		name = prompt("Please enter your name:", "");
+		if (name != "" && name != null) {
+		user = JSON.stringify(player);
+		setCookie("infiniteGame", user, 365);
+		}
+	}
+}
+
+
+/*checkCookie()
+*/
 
 buildGameMap()
