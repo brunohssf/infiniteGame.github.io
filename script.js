@@ -72,15 +72,15 @@ function updateGame() {
 		document.getElementById("maker"+i).innerHTML = bText;
 		document.getElementById("maker"+i).classList = w.makers[i].bought+"0%";
 	}
-	updatePlayer();
+	saveState();
 }
 
-function updatePlayer() {
+function saveState() {
 	w.player.score = w.gameScore;
 	w.player.scoreSpeed = w.scoreSpeed;
 	w.player.makers = w.makers;
-    user = w.player;
-    /*setCookie("infiniteGame", toString(user), 365);*/
+    user = JSON.stringify(w.player);
+    setCookie("infiniteGame", user, 365);*/
 }
 
 function buyAtom() {
