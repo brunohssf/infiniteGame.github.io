@@ -70,8 +70,7 @@ function updateGame() {
 			bText += ') Speed: ' + Math.round(w.makers[i+1].amount * w.makers[i+1].mult*100)/100 + '/s';
 		}
 		document.getElementById("maker"+i).innerHTML = bText;
-		document.getElementById("maker"+i).classList.remove((w.makers[i].bought-1)+"0%");
-		document.getElementById("maker"+i).classList.add((w.makers[i].bought)+"0%");
+		document.getElementById("maker"+i).classList = w.makers[i].bought+"0%";
 	}
 	updatePlayer();
 }
