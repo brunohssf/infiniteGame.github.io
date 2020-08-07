@@ -6,10 +6,10 @@ function setCookie(cname, cvalue, exdays) {
 }
 
 function getCookie(cname) {
-	name = cname + "=";
-	ca = document.cookie.split(';');
-	for(i = 0; i < ca.length; i++) {
-		c = ca[i];
+	var name = cname + "=";
+	var ca = document.cookie.split(';');
+	for(var i = 0; i < ca.length; i++) {
+		var c = ca[i];
 		if (c.indexOf("infiniteGame") == 0) {
 		return c.substring(name.lenght+1);
 		}
