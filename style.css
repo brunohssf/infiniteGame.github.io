@@ -123,11 +123,12 @@ footer {
 	float: left;
 	text-align: initial;
 	padding:0;
+	overflow:hidden;
 	transition: 0.4s;
 }
 
 .change.sideNav {
-	width: calc(fit-content - 8px);
+	width: calc(25% - 8px);
 	height: 100px;
 	background: grey;
 	display: block;
@@ -137,3 +138,11 @@ footer {
 	margin:0 0 0 8px;
 }
 	
+ul {
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 25px;
+	color: white;
+	display: block;
+	transition: 0.3s;
+}
