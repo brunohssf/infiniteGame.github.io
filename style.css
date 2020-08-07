@@ -9,6 +9,11 @@ body {
 	text-align:center;
 	padding-top:16px;
 }
+
+.sideNav {
+	width:25%;
+	height:
+}
 	
 .game {
 	width:50%;
@@ -75,6 +80,8 @@ h1,h3,h6 {
 
 footer {
 	bottom: 0;
-	width: inherit;
+	width: -webkit-fill-available;
 	padding: 16px;
+	position:absolute;
+	text-align:center;
 }
