@@ -6,12 +6,12 @@ function setCookie(cname, cvalue, exdays) {
 }
 
 function getCookie(cname) {
-	var name = cname + "=";
+	let cname = cname + "=";
 	var ca = document.cookie.split(';');
 	for(var i = 0; i < ca.length; i++) {
 		var c = ca[i];
-		if (c.indexOf("infiniteGame") == 0) {
-		return c.substring(name.lenght);
+		if (c.indexOf("infiniteGame=") == 0) {
+		return c.substring(cname.length+1);
 		}
 	}
 	return "";
