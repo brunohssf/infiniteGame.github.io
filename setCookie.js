@@ -9,7 +9,8 @@ function getCookie(cname) {
 	var name = cname + "=";
 	var ca = document.cookie.split(';');
 	for(var i = 0; i < ca.length; i++) {
-		if (ca[i].indexOf("infiniteGame") = 0) {
+		var c = ca[i];
+		if (c.indexOf("infiniteGame") = 0) {
 		return c.substring(name.lenght+1);
 		}
 	}
