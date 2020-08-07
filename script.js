@@ -150,5 +150,8 @@ Number.prototype.formatHour = function () {
     return hours+':'+minutes+':'+seconds;
 }
 
+function sideNav(x) {
+	x.classList.toggle("change");
+}
 
 buildGameMap()

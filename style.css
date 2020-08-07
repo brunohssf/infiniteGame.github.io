@@ -10,15 +10,11 @@ body {
 	padding-top:16px;
 }
 
-.sideNav {
-	width:25%;
-	height:
-}
-	
 .game {
 	width:50%;
 	min-width:300px;
-	margin:0 auto;
+	display:block;
+	float:left;
 }
 	
 button	{
@@ -85,3 +81,59 @@ footer {
 	position:absolute;
 	text-align:center;
 }
+
+.menuIcon {
+	display: inline-block;
+	cursor: pointer;
+	text-align: center;
+	border: 2px white solid;
+	min-width: 32px !important;
+	height: 32px;
+	margin: 0;
+}
+
+.bar1, .bar2, .bar3 {
+	width: 90%;
+	height: 2px;
+	background-color: #FFF;
+	margin: 6px 0;
+	transition: 0.4s;
+	border-radius: 3px;
+	margin: 3px auto;
+}
+
+.change .bar1 {
+	-webkit-transform: rotate(-45deg) translate(-20%, 3px);
+	transform: rotate(-45deg) translate(-3px, 3px);
+}
+
+.change .bar2 {opacity: 0;}
+
+.change .bar3 {
+	-webkit-transform: rotate(45deg) translate(-20%, -4px);
+	transform: rotate(45deg) translate(-4px, -4px);
+}
+
+.sideNav {
+	width: 32px;
+	height: 32px;
+	margin: 0 calc(25% - 40px) 0 8px;
+	background: grey;
+	display: block;
+	float: left;
+	text-align: initial;
+	padding:0;
+	transition: 0.4s;
+}
+
+.change.sideNav {
+	width: calc(25% - 8px);
+	height: 100px;
+	background: grey;
+	display: block;
+	float: left;
+	text-align: initial;
+	padding:0;
+	margin:0 0 0 8px;
+}
+	
