@@ -11,7 +11,7 @@ function getCookie(cname) {
 	for(var i = 0; i < ca.length; i++) {
 		var c = ca[i];
 		if (c.indexOf("infiniteGame=") == 0) {
-		return c.substring(cookieName.length+1);
+		return c.substring(cookieName.length);
 		}
 	}
 	return "";
