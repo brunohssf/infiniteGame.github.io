@@ -20,7 +20,10 @@ function getCookie(cname) {
 function checkCookie() {
 	var found = getCookie("infiniteGame");
 	if (found != "") {
-		player.value = JSON.parse(found)
+		console.log(found);
+		console.log(player);
+		player = JSON.parse(found);
+		console.log(player);
 	} else {
 		name = prompt("Please enter your name:", "");
 		if (name != "" && name != null) {
