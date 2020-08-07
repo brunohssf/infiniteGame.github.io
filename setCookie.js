@@ -34,5 +34,4 @@ function checkCookie() {
 }
 
 
-/*checkCookie()
-*/
+checkCookie()
