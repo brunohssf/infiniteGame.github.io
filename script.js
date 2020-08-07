@@ -26,7 +26,7 @@ function buildGameMap() {
 	if (w.player.user == "brunohssf") {
 		w.body = w.body + '<button id="restart" onClick="restart();" type="button">Restart</button>';
 	}
-	w.body = w.body + '<h3 id="gameTime">Tempo: 00</h3>';
+	w.body = w.body + '<h3 id="gameTime">Tempo: 00:00:00</h3>';
 	document.getElementById("game").innerHTML = body;
 	console.log(w.player.gameScore);
 	console.log(w.player.makers[0].mult);
@@ -129,6 +129,7 @@ function restart() {
 		w.player.makers[i].bought = 0;
 		w.player.makers[i].cost = 10 + 1000 * i ** (2 + 3 * i * i);
 		w.player.makers[i].mult = 1 - (i / 10) + (i / 100);
+		w.player.gameScore = 0;
 	}
 }
 

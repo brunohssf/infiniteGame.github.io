@@ -11,7 +11,7 @@ body {
 }
 	
 .game {
-	width:50%
+	width:50%;
 	min-width:300px;
 }
 	
@@ -72,6 +72,8 @@ h1,h3,h6 {
 	width:50%;
 }
 
-.bannerPayPal {
-	
+footer {
+	bottom: 0;
+	width: inherit;
+	padding: 16px;
 }
