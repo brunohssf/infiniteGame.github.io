@@ -11,3 +11,4 @@ w.player.scoreSpeed = 0;
 w.player.gameScore = 200;
 w.player.makers = [];
 w.player.user = "name";
+w.player.gameTime = 0;

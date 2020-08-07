@@ -25,6 +25,7 @@ function buildGameMap() {
 	w.body = w.body + '<button id="buyMax" onClick="buyMax();" type="button">Buy Max!</button>';
 	w.body = w.body + '<button id="log" onClick="logOnOff();" type="button">LogOnOff</button>';
 	w.body = w.body + '<button id="prestige" onClick="prestige();" type="button">Prestige</button>';
+	w.body = w.body + '<button id="restart" onClick="restart();" type="button">Restart</button>';
 	w.body = w.body + '<h3 id="gameTime">Tempo: 00</h3>';
 	document.getElementById("game").innerHTML = body;
 	console.log(w.player.gameScore);
@@ -50,7 +51,7 @@ function gameLoop() {
 		w.tickCount ++;
 	}
 	gameTime += tick;
-	document.getElementById("gameTime").innerHTML = 'Time: ' + gameTime.formatHour();
+	document.getElementById("gameTime").innerHTML = 'Time: ' + w.player.gameTime.formatHour();
 
 }
 
@@ -118,6 +119,15 @@ function prestige() {
 		w.player.makers[i].bought = 0;
 		w.player.makers[i].cost = 10 + 1000 * i ** (2 + 3 * i * i);
 		w.player.makers[i].mult *= 1.1;
+	}
+}
+
+function restart() {
+	for (i = 0; i < w.makers.length; i ++) {
+		w.player.makers[i].amount = 0;
+		w.player.makers[i].bought = 0;
+		w.player.makers[i].cost = 10 + 1000 * i ** (2 + 3 * i * i);
+		w.player.makers[i].mult = 1 - (i / 10) + (i / 100);
 	}
 }
 
