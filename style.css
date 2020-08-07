@@ -127,7 +127,7 @@ footer {
 }
 
 .change.sideNav {
-	width: calc(25% - 8px);
+	width: calc(fit-content - 8px);
 	height: 100px;
 	background: grey;
 	display: block;
