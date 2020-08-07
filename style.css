@@ -13,13 +13,14 @@ body {
 .game {
 	width:50%;
 	min-width:300px;
+	margin:0 auto;
 }
 	
 button	{
 	padding:4px;
 	background-color:black;
 	border:white 1px solid;
-	min-width:8%;
+	min-width:16%;
 	border-radius:4px;
 	clear:both;
 	display:block;
