@@ -133,13 +133,18 @@ footer {
 
 .change.sideNav {
 	width: calc(25% - 8px);
-	height: 100px;
+	height: fit-content;
 	background: grey;
 	display: block;
 	float: left;
 	text-align: initial;
 	padding:0;
 	margin:0 0 0 8px;
+}
+
+.sideNav #menu button {
+	width:100%;
+	height:32px;
 }
 	
 ul {

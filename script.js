@@ -21,13 +21,15 @@ function buildGameMap() {
 
 	}
 	w.body = w.body + '<button id="buyMax" onClick="buyMax();" type="button">Buy Max!</button>';
-	w.body = w.body + '<button id="log" onClick="logOnOff();" type="button">LogOnOff</button>';
-	w.body = w.body + '<button id="prestige" onClick="prestige();" type="button">Prestige</button>';
+	var menu = '';
+	menu = menu + '<button id="log" onClick="logOnOff();" type="button">LogOnOff</button>';
+	menu = menu + '<button id="prestige" onClick="prestige();" type="button">Prestige</button>';
 	if (w.player.user == "brunohssf") {
-		w.body = w.body + '<button id="restart" onClick="restart();" type="button">Restart</button>';
+		menu = menu + '<button id="restart" onClick="restart();" type="button">Restart</button>';
 	}
 	w.body = w.body + '<h3 id="gameTime">Tempo: 00:00:00</h3>';
 	document.getElementById("game").innerHTML = body;
+	document.getElementById("menu").innerHTML = menu;
 	console.log(w.player.gameScore);
 	console.log(w.player.makers[0].mult);
 	gameLoop();
@@ -56,10 +58,10 @@ function gameLoop() {
 }
 
 function scoreLoop(tick) {
-	w.player.scoreSpeed = w.player.makers[0].amount * w.player.makers[0].mult;
-	w.player.gameScore += w.player.makers[0].amount * w.player.makers[0].mult * tick;
+	w.player.scoreSpeed = w.player.makers[0].amount * w.player.makers[0].mult * (1.1 ** w.player.prestige);
+	w.player.gameScore += w.player.makers[0].amount * w.player.makers[0].mult * tick * (1.1 ** w.player.prestige);
 	for (i = 1; i < w.player.makers.length; i++)	{
-			w.player.makers[i-1].amount += w.player.makers[i].amount * w.player.makers[i].mult * tick
+			w.player.makers[i-1].amount += w.player.makers[i].amount * w.player.makers[i].mult * tick * (1.1 ** w.player.prestige);
 		}
 }
 
@@ -118,7 +120,6 @@ function prestige() {
 		w.player.makers[i].amount = 0;
 		w.player.makers[i].bought = 0;
 		w.player.makers[i].cost = 10 + 1000 * i ** (2 + 3 * i * i);
-		w.player.makers[i].mult *= 1.1;
 		w.player.prestige ++;
 	}
 }
