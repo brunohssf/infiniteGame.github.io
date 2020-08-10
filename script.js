@@ -64,13 +64,13 @@ function scoreLoop(tick) {
 }
 
 function updateGame() {
-	document.getElementById("score").innerHTML = 'Atoms: ' + Math.round(w.player.gameScore);
-	document.getElementById("scoreSpeed").innerHTML = 'Speed: ' + Math.round(w.player.scoreSpeed*100)/100 + '/s';
+	document.getElementById("score").innerHTML = 'Atoms: ' + formatP(Math.round(w.player.gameScore));
+	document.getElementById("scoreSpeed").innerHTML = 'Speed: ' + formatP(Math.round(w.player.scoreSpeed*100)/100) + '/s';
 	for (i = 0; i < w.player.makers.length; i++){
-		bText = 'Make Atom Maker (' + Math.round(w.player.makers[i].cost*100)/100;
-		bText += ') Amount: ' + Math.round(w.player.makers[i].amount);
+		bText = 'Make Atom Maker (' + formatP(Math.round(w.player.makers[i].cost*100)/100);
+		bText += ') Amount: ' + formatP(Math.round(w.player.makers[i].amount));
 		if (i+1 < w.player.makers.length){
-			bText += ') Speed: ' + Math.round(w.player.makers[i+1].amount * w.player.makers[i+1].mult*100)/100 + '/s';
+			bText += ') Speed: ' + formatP(Math.round(w.player.makers[i+1].amount * w.player.makers[i+1].mult*100)/100) + '/s';
 		}
 		document.getElementById("maker"+i).innerHTML = bText;
 		document.getElementById("maker"+i).classList = w.player.makers[i].bought+"0%";
@@ -84,7 +84,7 @@ function saveState() {
 }
 
 function buyAtom() {
-	w.gameScore ++;
+	w.player.gameScore ++;
 }
 
 function buyAtomMaker(i) {
@@ -152,6 +152,15 @@ Number.prototype.formatHour = function () {
 
 function sideNav(x) {
 	x.classList.toggle("change");
+}
+
+function formatP(value) {
+	if (value > 9999) {
+		return value.toExponential(3);
+	} else {
+		return value
+	}
+
 }
 
 buildGameMap()
