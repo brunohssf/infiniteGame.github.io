@@ -18,6 +18,7 @@ body {
 }
 	
 button	{
+	cursor: pointer;
 	padding:4px;
 	background-color:black;
 	border:white 1px solid;
@@ -154,4 +155,8 @@ ul {
 	color: white;
 	display: block;
 	transition: 0.3s;
+}
+
+button.disabled {
+	pointer-events:none;
 }

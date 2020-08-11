@@ -20,10 +20,10 @@ function buildGameMap() {
 		w.body = w.body + '<button id="maker'+i+'" class="00%" onClick="buyAtomMaker('+i+');" ><div id="maker'+i+'Bar" class="progressBar"></div>Make Atom Maker ('+w.player.makers[i].cost+')</div>';
 
 	}
+	w.body = w.body + '<button id="prestige" onClick="prestige();" type="button">Prestige</button>';
 	w.body = w.body + '<button id="buyMax" onClick="buyMax();" type="button">Buy Max!</button>';
 	var menu = '';
 	menu = menu + '<button id="log" onClick="logOnOff();" type="button">LogOnOff</button>';
-	menu = menu + '<button id="prestige" onClick="prestige();" type="button">Prestige</button>';
 	if (w.player.user == "brunohssf") {
 		menu = menu + '<button id="restart" onClick="restart();" type="button">Restart</button>';
 	}
@@ -43,6 +43,7 @@ function gameLoop() {
 	/*buyAtom();*/
 
 	scoreLoop(tick);
+	checkUnlocks();
 	updateGame();
 	w.requestAnimationFrame(gameLoop);
 	w.lastTick = tempo;
@@ -121,8 +122,8 @@ function prestige() {
 		w.player.makers[i].bought = 0;
 		w.player.makers[i].cost = 10 + 1000 * i ** (2 + 3 * i * i);
 		w.player.makers[i].mult = 1 - (i / 10) + (i / 100);
-		w.player.prestige ++;
 	}
+	w.player.prestige ++;
 }
 
 function restart() {
@@ -163,6 +164,14 @@ function formatP(value) {
 		return value
 	}
 
+}
+
+function checkUnlocks() {
+	if (w.player.makers[w.player.prestige+2].amount > 1) {
+		document.getElementById("prestige").classList.remove("disabled");
+	} else {
+		document.getElementById("prestige").classList.add("disabled");
+	}
 }
 
 buildGameMap()
