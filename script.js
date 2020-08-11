@@ -23,6 +23,7 @@ function buildGameMap() {
 	w.body = w.body + '<button id="prestige" onClick="prestige();" type="button">Prestige</button>';
 	w.body = w.body + '<button id="buyMax" onClick="buyMax();" type="button">Buy Max!</button>';
 	var menu = '';
+	menu = menu + '<button class="g-signin2" data-onsuccess="onSignIn">Login</button>';
 	menu = menu + '<button id="log" onClick="logOnOff();" type="button">LogOnOff</button>';
 	if (w.player.user == "brunohssf") {
 		menu = menu + '<button id="restart" onClick="restart();" type="button">Restart</button>';
@@ -173,5 +174,14 @@ function checkUnlocks() {
 		document.getElementById("prestige").classList.add("disabled");
 	}
 }
+
+function onSignIn(googleUser) {
+  var profile = googleUser.getBasicProfile();
+  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+  console.log('Name: ' + profile.getName());
+  console.log('Image URL: ' + profile.getImageUrl());
+  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+}
+
 
 buildGameMap()

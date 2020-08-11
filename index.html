@@ -3,10 +3,20 @@
 <head>
 	<title>InfiniteGame</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="google-signin-client_id" content="14456485395-vunm7vfbbilhf6h07ibqh94c68bbuo8c.apps.googleusercontent.com">
 	<link rel="stylesheet" type="text/css" href="style.css">
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<script>
+	  function signOut() {
+	    var auth2 = gapi.auth2.getAuthInstance();
+	    auth2.signOut().then(function () {
+	      console.log('User signed out.');
+	    });
+	  }
+	</script>
 </head>
 <body >
-	<div id="sideNav" onClick="sideNav(this)" class="sideNav">
+	<div id="sideNav" class="sideNav" onClick="sideNav(this)">
 		<button class="menuIcon">
 		  <div class="bar1"></div>
 		  <div class="bar2"></div>
@@ -15,6 +25,8 @@
 		<div id="menu">
 		</div>
 	</div>
+	<a href="#" onclick="signOut();">Sign out</a>
+
 	<div id="game" class="game">
 		<h1> GAME </h1>
 	</div>
@@ -28,9 +40,9 @@
 		<img alt="" border="0" src="https://www.paypal.com/en_BR/i/scr/pixel.gif" width="1" height="1" />
 		</form>
 	</footer>
-</body>
 	<script type="text/javascript" src="player.js"> </script>
 	<script type="text/javascript" src="setCookie.js"> </script>
 	<script type="text/javascript" src="script.js"> </script>
 	<script type="text/javascript" src="vue.min.js"> </script>
+</body>
 </html>

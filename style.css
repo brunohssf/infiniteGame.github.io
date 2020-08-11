@@ -123,7 +123,6 @@ footer {
 	width: 32px;
 	height: 32px;
 	margin: 0 calc(25% - 40px) 0 8px;
-	background: grey;
 	display: block;
 	float: left;
 	text-align: initial;
@@ -135,7 +134,6 @@ footer {
 .change.sideNav {
 	width: calc(25% - 8px);
 	height: fit-content;
-	background: grey;
 	display: block;
 	float: left;
 	text-align: initial;
@@ -159,4 +157,8 @@ ul {
 
 button.disabled {
 	pointer-events:none;
+}
+
+.g-signin2 {
+	
 }
