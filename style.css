@@ -159,8 +159,12 @@ button.disabled {
 	pointer-events:none;
 }
 
-.g-signin2.div {
+.g-signin2 div {
 	background:black;
-	width:100%;
-	height:300px;
+/*	color: white !important;
+	text-decoration-color: white;
+}
+.g-signin2 span {
+	color: white !important;
+	text-decoration-color: white;*/
 }
