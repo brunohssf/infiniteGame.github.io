@@ -21,13 +21,13 @@ function checkCookie() {
 	var found = getCookie("infiniteGame");
 	if (found != "") {
 		console.log(found);
-		console.log(player);
-		player = JSON.parse(found);
+		console.log(w.player);
+		w.player = JSON.parse(found);
 		console.log(player);
 	} else {
 		name = prompt("Please enter your name:", "");
 		if (name != "" && name != null) {
-		user = JSON.stringify(player);
+		user = JSON.stringify(w.player);
 		setCookie("infiniteGame", user, 365);
 		}
 	}
