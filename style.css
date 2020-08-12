@@ -161,6 +161,7 @@ button.disabled {
 
 .g-signin2 div {
 	background:black;
+	text-align:center;
 /*	color: white !important;
 	text-decoration-color: white;
 }
