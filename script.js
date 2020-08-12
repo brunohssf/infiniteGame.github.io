@@ -29,6 +29,9 @@ function buildGameMap() {
 		menu = menu + '<button id="restart" onClick="restart();" type="button">Restart</button>';
 	}
 	menu = menu + '<div class="g-signin2" data-onsuccess="onSignIn">Login</div>';
+	menu = menu + '<button onclick="signOut();">Sign out</button>';
+
+
 	document.getElementById("game").innerHTML = body;
 	document.getElementById("menu").innerHTML = menu;
 	console.log(w.player.gameScore);
