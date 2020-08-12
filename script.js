@@ -126,6 +126,7 @@ function prestige() {
 		w.player.makers[i].bought = 0;
 		w.player.makers[i].cost = 10 + 1000 * i ** (2 + 3 * i * i);
 		w.player.makers[i].mult = 1 - (i / 10) + (i / 100);
+		w.player.gameScore = 0;
 	}
 	w.player.prestige ++;
 }
