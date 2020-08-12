@@ -12,6 +12,8 @@ function getCookie(cname) {
 		var c = ca[i];
 		if (c.indexOf("infiniteGame=") == 0) {
 		return c.substring(cookieName.length);
+		} else if (c.indexOf("infiniteGame=") == 1) {
+		return c.substring(cookieName.length+1);
 		}
 	}
 	return "";
@@ -34,4 +36,3 @@ function checkCookie() {
 }
 
 
-checkCookie()
