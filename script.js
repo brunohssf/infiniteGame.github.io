@@ -173,8 +173,10 @@ function formatP(value) {
 function checkUnlocks() {
 	if (w.player.makers[(w.player.prestige+2)].amount > 1) {
 		document.getElementById("prestige").classList.remove("disabled");
-	} else {
+		document.getElementById("prestige").innerHTML = '<i class="fa fa-unlock"></i> Prestige';
+		} else {
 		document.getElementById("prestige").classList.add("disabled");
+		document.getElementById("prestige").innerHTML = '<i class="fa fa-lock"></i> Prestige';
 	}
 }
 
