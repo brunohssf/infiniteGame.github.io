@@ -22,13 +22,13 @@ function buildGameMap() {
 	}
 	w.body = w.body + '<button id="prestige" onClick="prestige();" type="button">Prestige</button>';
 	w.body = w.body + '<button id="buyMax" onClick="buyMax();" type="button">Buy Max!</button>';
+	w.body = w.body + '<h3 id="gameTime">Tempo: 00:00:00</h3>';
 	var menu = '';
-	menu = menu + '<div class="g-signin2" data-onsuccess="onSignIn">Login</div>';
 	menu = menu + '<button id="log" onClick="logOnOff();" type="button">LogOnOff</button>';
 	if (w.player.user == "brunohssf") {
 		menu = menu + '<button id="restart" onClick="restart();" type="button">Restart</button>';
 	}
-	w.body = w.body + '<h3 id="gameTime">Tempo: 00:00:00</h3>';
+	menu = menu + '<div class="g-signin2" data-onsuccess="onSignIn">Login</div>';
 	document.getElementById("game").innerHTML = body;
 	document.getElementById("menu").innerHTML = menu;
 	console.log(w.player.gameScore);
