@@ -171,7 +171,7 @@ function formatP(value) {
 }
 
 function checkUnlocks() {
-	if (w.player.makers[3].amount > 1) {
+	if (w.player.makers[(w.player.prestige+2)].amount > 1) {
 		document.getElementById("prestige").classList.remove("disabled");
 	} else {
 		document.getElementById("prestige").classList.add("disabled");
