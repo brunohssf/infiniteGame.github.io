@@ -36,7 +36,6 @@ function buildGameMap() {
 	document.getElementById("menu").innerHTML = menu;
 	console.log(w.player.gameScore);
 	console.log(w.player.makers[0].mult);
-	gameLoop();
 }
 
 function gameLoop() {
@@ -106,6 +105,7 @@ function buyAtomMaker(i) {
 		}
 	if ((w.player.dimNum = i-1) && w.player.dimNum < 8) {
 		w.player.dimNum ++;
+
 		}
 /*		console.log(w.gameScore);
 		console.log(w.makers[i].cost);
@@ -132,6 +132,7 @@ function prestige() {
 		w.player.gameScore = 0;
 	}
 	w.player.prestige ++;
+	buildGameMap()
 }
 
 function restart() {
@@ -175,7 +176,7 @@ function formatP(value) {
 }
 
 function checkUnlocks() {
-	if (w.player.makers[(w.player.prestige+2)].amount > 1) {
+	if (w.player.makers[(w.player.prestige+1)].amount > 1) {
 		document.getElementById("prestige").classList.remove("disabled");
 		document.getElementById("prestige").innerHTML = '<i class="fa fa-unlock"></i> Prestige';
 		} else {
@@ -194,3 +195,4 @@ function onSignIn(googleUser) {
 }
 
 buildGameMap()
+gameLoop()
