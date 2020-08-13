@@ -9,8 +9,8 @@ function makerBuilder(i) {
 }
 
 function buildGameMap() {
-	if (w.player.makers.length < dimNum-1) {
-		for (i = 0; i < dimNum; i++){
+	if (w.player.makers.length < w.player.dimNum-1) {
+		for (i = 0; i < w.player.dimNum; i++){
 			w.player.makers.push(makerBuilder(i));
 			}
 		}
@@ -103,6 +103,9 @@ function buyAtomMaker(i) {
 		if (w.player.makers[i].bought == 10) {
 			w.player.makers[i].mult *= 2;
 			w.player.makers[i].bought = 0;
+		}
+	if ((w.player.dimNum = i-1) && w.player.dimNum < 8) {
+		w.player.dimNum ++;
 		}
 /*		console.log(w.gameScore);
 		console.log(w.makers[i].cost);
