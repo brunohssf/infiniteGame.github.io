@@ -7,9 +7,10 @@ var logging = new Boolean(true);
 
 w.player.oldScore = 0;
 w.player.scoreSpeed = 0;
-w.player.gameScore = 2000;
+w.player.gameScore = 2000000000;
 w.player.makers = [];
 w.player.user = "name";
 w.player.gameTime = 0;
 w.player.prestige = 0;
 w.player.dimNum = 3;
+w.player.maxDimNum = 3;

@@ -9,8 +9,8 @@ function makerBuilder(i) {
 }
 
 function buildGameMap() {
-	if (w.player.makers.length < w.player.dimNum-1) {
-		for (i = 0; i < w.player.dimNum; i++){
+	if (w.player.makers.length < w.player.dimNum) {
+		for (i = w.player.makers.length; i < w.player.dimNum; i++){
 			w.player.makers.push(makerBuilder(i));
 			}
 		}
@@ -35,7 +35,6 @@ function buildGameMap() {
 	document.getElementById("game").innerHTML = body;
 	document.getElementById("menu").innerHTML = menu;
 	console.log(w.player.gameScore);
-	console.log(w.player.makers[0].mult);
 }
 
 function gameLoop() {
@@ -62,11 +61,13 @@ function gameLoop() {
 }
 
 function scoreLoop(tick) {
-	w.player.scoreSpeed = w.player.makers[0].amount * w.player.makers[0].mult * (1.1 ** w.player.prestige);
-	w.player.gameScore += w.player.makers[0].amount * w.player.makers[0].mult * tick * (1.1 ** w.player.prestige);
-	for (i = 1; i < w.player.makers.length; i++)	{
-			w.player.makers[i-1].amount += w.player.makers[i].amount * w.player.makers[i].mult * tick * (1.1 ** w.player.prestige);
+	if (w.player.makers.length > 0) {
+		w.player.scoreSpeed = w.player.makers[0].amount * w.player.makers[0].mult * (1.1 ** w.player.prestige);
+		w.player.gameScore += w.player.makers[0].amount * w.player.makers[0].mult * tick * (1.1 ** w.player.prestige);
+		for (i = 1; i < w.player.makers.length; i++)	{
+				w.player.makers[i-1].amount += w.player.makers[i].amount * w.player.makers[i].mult * tick * (1.1 ** w.player.prestige);
 		}
+	}
 }
 
 function updateGame() {
@@ -75,9 +76,7 @@ function updateGame() {
 	for (i = 0; i < w.player.makers.length; i++){
 		bText = 'Make Atom Maker (' + formatP(Math.round(w.player.makers[i].cost*100)/100);
 		bText += ') Amount: ' + formatP(Math.round(w.player.makers[i].amount));
-		if (i+1 < w.player.makers.length){
-			bText += ') Speed: ' + formatP(Math.round(w.player.makers[i+1].amount * w.player.makers[i+1].mult*100)/100) + '/s';
-		}
+		bText += ') Making: ' + formatP(Math.round(w.player.makers[i].amount * w.player.makers[i].mult*100)/100) + '/s';
 		document.getElementById("maker"+i).innerHTML = bText;
 		document.getElementById("maker"+i).classList = w.player.makers[i].bought+"0%";
 	}
@@ -103,8 +102,11 @@ function buyAtomMaker(i) {
 			w.player.makers[i].mult *= 2;
 			w.player.makers[i].bought = 0;
 		}
-	if ((w.player.dimNum = i-1) && w.player.dimNum < 8) {
+	if ((w.player.dimNum == (i+1) && w.player.dimNum < 3) || (w.player.dimNum == (i+w.player.prestige) && w.player.dimNum < w.player.maxDimNum)) {
+		console.log(w.player.dimNum);
 		w.player.dimNum ++;
+		buildGameMap();
+        console.log(w.player.dimNum);
 
 		}
 /*		console.log(w.gameScore);
@@ -129,9 +131,12 @@ function prestige() {
 		w.player.makers[i].bought = 0;
 		w.player.makers[i].cost = 10 + 1000 * i ** (2 + 3 * i * i);
 		w.player.makers[i].mult = 1 - (i / 10) + (i / 100);
-		w.player.gameScore = 0;
+		/*w.player.gameScore = 0;*/
 	}
 	w.player.prestige ++;
+	if (w.player.prestige < 5 && w.player.maxDimNum < 8) {
+		w.player.maxDimNum ++;
+	}
 	buildGameMap()
 }
 
@@ -176,12 +181,15 @@ function formatP(value) {
 }
 
 function checkUnlocks() {
-	if (w.player.makers[(w.player.prestige+1)].amount > 1) {
-		document.getElementById("prestige").classList.remove("disabled");
-		document.getElementById("prestige").innerHTML = '<i class="fa fa-unlock"></i> Prestige';
-		} else {
-		document.getElementById("prestige").classList.add("disabled");
-		document.getElementById("prestige").innerHTML = '<i class="fa fa-lock"></i> Prestige';
+	var l = w.player.makers.length;
+	if (l > 2) {
+		if (w.player.makers[(l-1)].amount >= 1) {
+			document.getElementById("prestige").classList.remove("disabled");
+			document.getElementById("prestige").innerHTML = '<i class="fa fa-unlock"></i> Prestige';
+			} else {
+			document.getElementById("prestige").classList.add("disabled");
+			document.getElementById("prestige").innerHTML = '<i class="fa fa-lock"></i> Prestige';
+		}
 	}
 }
 
