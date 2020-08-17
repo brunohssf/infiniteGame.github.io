@@ -25,7 +25,7 @@ function checkCookie() {
 		w.player = JSON.parse(found);
 		console.log(player);
 	} else {
-		if (1==2) {
+		if (1 > 2) {
 		} else {
 			name = prompt("Please enter your name:", "");
 			if (name != "" && name != null) {
