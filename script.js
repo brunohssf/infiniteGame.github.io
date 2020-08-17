@@ -10,7 +10,7 @@ function makerBuilder(i) {
 
 function buildGameMap(x) {
 	w.player.map = x;
-	if (w.player.map === 'normalDims') {
+	if (w.player.map == 'normalDims') {
 		if (w.player.makers.length < w.player.dimNum) {
 			for (i = w.player.makers.length; i < w.player.dimNum; i++){
 				w.player.makers.push(makerBuilder(i));
@@ -74,7 +74,7 @@ function scoreLoop(tick) {
 }
 
 function updateGame() {
-	if (w.player.map === 'normalDims') {
+	if (w.player.map == 'normalDims') {
 		document.getElementById("score").innerHTML = 'Atoms: ' + formatP(Math.round(w.player.gameScore));
 		document.getElementById("scoreSpeed").innerHTML = 'Speed: ' + formatP(Math.round(w.player.scoreSpeed*100)/100) + '/s';
 		for (i = 0; i < w.player.makers.length; i++){
@@ -84,8 +84,8 @@ function updateGame() {
 			document.getElementById("maker"+i).innerHTML = bText;
 			document.getElementById("maker"+i).classList = w.player.makers[i].bought+"0%";
 		}
-		saveState();
 	}
+	saveState();
 }
 
 function saveState() {
