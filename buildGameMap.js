@@ -27,5 +27,6 @@ function buildGameMap(x) {
 		document.getElementById("game").innerHTML = body;
 		document.getElementById("menu").innerHTML = menu;
 		console.log(w.player.gameScore);
+
 	}
 }
