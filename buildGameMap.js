@@ -1,6 +1,6 @@
 function buildGameMap(x) {
 	w.player.map = x;
-	if ((w.player.map == 'normalDims') || (w.player.map == null)) {
+	if (w.player.map == 'normalDims') {
 		if (w.player.makers.length < w.player.dimNum) {
 			for (i = w.player.makers.length; i < w.player.dimNum; i++){
 				w.player.makers.push(makerBuilder(i));
