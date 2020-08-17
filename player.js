@@ -15,3 +15,4 @@ w.player.prestige = 0;
 w.player.dimNum = 3;
 w.player.maxDimNum = 3;
 w.player.map = 'normalDims';
+w.player.gID = 0;
