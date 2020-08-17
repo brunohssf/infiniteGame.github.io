@@ -173,5 +173,5 @@ function onSignIn(googleUser) {
 	checkCookie();
 }
 
-buildGameMap()
+buildGameMap(w.player.map)
 gameLoop()

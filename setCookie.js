@@ -25,7 +25,9 @@ function checkCookie() {
 		w.player = JSON.parse(found);
 		console.log(player);
 	} else {
-		if (1==2) {
+		if (oauth2.isSignedIn.get()) {
+			var profile = auth2.currentUser.get().getBasicProfile();
+			w.player.user = profile.getId();
 		} else {
 			name = prompt("Please enter your name:", "");
 			if (name != "" && name != null) {
