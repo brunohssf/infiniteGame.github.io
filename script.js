@@ -9,7 +9,10 @@ function makerBuilder(i) {
 }
 
 function buildGameMap(x) {
+
 	w.player.map = x;
+	w.body = '<h1 id="score">Atoms: 0</h1><h6 id="scoreSpeed">Speed: 0</h6>';
+
 	if (w.player.map == 'normalDims') {
 		if (w.player.makers.length < w.player.dimNum) {
 			for (i = w.player.makers.length; i < w.player.dimNum; i++){
@@ -25,19 +28,24 @@ function buildGameMap(x) {
 		w.body = w.body + '<button id="prestige" onClick="prestige();" type="button">Prestige</button>';
 		w.body = w.body + '<button id="buyMax" onClick="buyMax();" type="button">Buy Max!</button>';
 		w.body = w.body + '<h3 id="gameTime">Tempo: 00:00:00</h3>';
-		var menu = '';
-		menu = menu + '<button id="log" onClick="logOnOff();" type="button">LogOnOff</button>';
-		if (w.player.user == "brunohssf") {
-			menu = menu + '<button id="restart" onClick="restart();" type="button">Restart</button>';
+
+	} else if (w.player.map == 'upgrades') {
+		for (i = 0; i < w.upgrades.length; i++) {
 		}
-		menu = menu + '<div class="g-signin2" data-onsuccess="onSignIn">Login</div>';
-		menu = menu + '<button onclick="signOut();">Sign out</button>';
-
-
-		document.getElementById("game").innerHTML = body;
-		document.getElementById("menu").innerHTML = menu;
-		console.log(w.player.gameScore);
 	}
+	var menu = '';
+	menu = menu + '<button id="log" onClick="logOnOff();" type="button">LogOnOff</button>';
+	menu = menu + '<button id="normalDims" onClick="buildGameMap(\'normalDims\');" type="button">Normal Dimensios</button>';
+	menu = menu + '<button id="upgrades" onClick="buildGameMap(\'updagres\');" type="button">Upgrades</button>';
+	if (w.player.user == "name") {
+		menu = menu + '<button id="restart" onClick="restart();" type="button">Restart</button>';
+	}
+	menu = menu + '<div class="g-signin2" data-onsuccess="onSignIn">Login</div>';
+	menu = menu + '<button onclick="signOut();">Sign out</button>';
+
+	document.getElementById("game").innerHTML = w.body;
+	document.getElementById("menu").innerHTML = menu;
+	console.log(w.player.gameScore);
 }
 
 function gameLoop() {
@@ -74,9 +82,9 @@ function scoreLoop(tick) {
 }
 
 function updateGame() {
-	if (w.player.map == 'normalDims') {
 		document.getElementById("score").innerHTML = 'Atoms: ' + formatP(Math.round(w.player.gameScore));
 		document.getElementById("scoreSpeed").innerHTML = 'Speed: ' + formatP(Math.round(w.player.scoreSpeed*100)/100) + '/s';
+	if (w.player.map == 'normalDims') {
 		for (i = 0; i < w.player.makers.length; i++){
 			bText = 'Make Atom Maker (' + formatP(Math.round(w.player.makers[i].cost*100)/100);
 			bText += ') Amount: ' + formatP(Math.round(w.player.makers[i].amount));
@@ -112,7 +120,6 @@ function buyAtomMaker(i) {
 		w.player.dimNum ++;
 		buildGameMap(w.player.map);
         console.log(w.player.dimNum);
-
 		}
 /*		console.log(w.gameScore);
 		console.log(w.makers[i].cost);
@@ -134,7 +141,7 @@ function prestige() {
 	for (i = 0; i < w.player.makers.length; i ++) {
 		w.player.makers[i].amount = 0;
 		w.player.makers[i].bought = 0;
-		w.player.makers[i].cost = 10 + 1000 * i ** (2 + 3 * i * i);
+		w.player.makers[i].cost = 10 + 10000 * i ** (2 + 3 * i * i) - 9000 * i;
 		w.player.makers[i].mult = 1 - (i / 10) + (i / 100);
 		/*w.player.gameScore = 0;*/
 	}
@@ -149,7 +156,7 @@ function restart() {
 	for (i = 0; i < w.player.makers.length; i ++) {
 		w.player.makers[i].amount = 0;
 		w.player.makers[i].bought = 0;
-		w.player.makers[i].cost = 10 + 1000 * i ** (2 + 3 * i * i);
+		w.player.makers[i].cost = 10 + 10000 * i ** (2 + 3 * i * i) - 9000 * i;
 		w.player.makers[i].mult = 1 - (i / 10) + (i / 100);
 		w.player.gameScore = 0;
 	}
@@ -186,14 +193,16 @@ function formatP(value) {
 }
 
 function checkUnlocks() {
-	var l = w.player.makers.length;
-	if (l > 2) {
-		if (w.player.makers[(l-1)].amount >= 1) {
-			document.getElementById("prestige").classList.remove("disabled");
-			document.getElementById("prestige").innerHTML = '<i class="fa fa-unlock"></i> Prestige';
-			} else {
-			document.getElementById("prestige").classList.add("disabled");
-			document.getElementById("prestige").innerHTML = '<i class="fa fa-lock"></i> Prestige';
+	if (w.player.map == 'normalDims') {
+		var L = w.player.makers.length;
+		if (L > 2) {
+			if (w.player.makers[(L-1)].amount >= 1) {
+				document.getElementById("prestige").classList.remove("disabled");
+				document.getElementById("prestige").innerHTML = '<i class="fa fa-unlock"></i> Prestige';
+				} else {
+				document.getElementById("prestige").classList.add("disabled");
+				document.getElementById("prestige").innerHTML = '<i class="fa fa-lock"></i> Prestige';
+			}
 		}
 	}
 }
