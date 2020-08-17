@@ -28,10 +28,10 @@ function checkCookie() {
 		if (1 > 2) {
 		} else {
 			name = prompt("Please enter your name:", "");
-		}
-	if (name != "" && name != null) {
-		user = JSON.stringify(w.player);
-		setCookie("infiniteGame", user, 365);
+			if (name != "" && name != null) {
+				user = JSON.stringify(w.player);
+				setCookie("infiniteGame", user, 365);
+			}
 		}
 	}
 }
