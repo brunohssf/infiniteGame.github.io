@@ -9,17 +9,17 @@ function makerBuilder(i) {
 }
 
 function buildGameMap(x) {
-	p.map = x;
-	if (p.map === 'normalDims') {
-		if (p.makers.length < p.dimNum) {
-			for (i = p.makers.length; i < p.dimNum; i++){
-				p.makers.push(makerBuilder(i));
+	w.player.map = x;
+	if (w.player.map === 'normalDims') {
+		if (w.player.makers.length < w.player.dimNum) {
+			for (i = w.player.makers.length; i < w.player.dimNum; i++){
+				w.player.makers.push(makerBuilder(i));
 				}
 			}
 		w.body = '<h1 id="score">Atoms: 0</h1><h6 id="scoreSpeed">Speed: 0</h6>';
 		w.body = w.body + '<button onClick="buyAtom();" type="button">Make Atom</button>';
-		for (i = 0; i < p.makers.length; i++){
-			w.body = w.body + '<button id="maker'+i+'" class="00%" onClick="buyAtomMaker('+i+');" ><div id="maker'+i+'Bar" class="progressBar"></div>Make Atom Maker ('+p.makers[i].cost+')</div>';
+		for (i = 0; i < w.player.makers.length; i++){
+			w.body = w.body + '<button id="maker'+i+'" class="00%" onClick="buyAtomMaker('+i+');" ><div id="maker'+i+'Bar" class="progressBar"></div>Make Atom Maker ('+w.player.makers[i].cost+')</div>';
 
 		}
 		w.body = w.body + '<button id="prestige" onClick="prestige();" type="button">Prestige</button>';
@@ -27,7 +27,7 @@ function buildGameMap(x) {
 		w.body = w.body + '<h3 id="gameTime">Tempo: 00:00:00</h3>';
 		var menu = '';
 		menu = menu + '<button id="log" onClick="logOnOff();" type="button">LogOnOff</button>';
-		if (p.user == "brunohssf") {
+		if (w.player.user == "brunohssf") {
 			menu = menu + '<button id="restart" onClick="restart();" type="button">Restart</button>';
 		}
 		menu = menu + '<div class="g-signin2" data-onsuccess="onSignIn">Login</div>';
@@ -36,7 +36,7 @@ function buildGameMap(x) {
 
 		document.getElementById("game").innerHTML = body;
 		document.getElementById("menu").innerHTML = menu;
-		console.log(p.gameScore);
+		console.log(w.player.gameScore);
 	}
 }
 
@@ -58,60 +58,60 @@ function gameLoop() {
 	if ((w.scoreSpeed > 0) && (w.logging == true)) {
 		w.tickCount ++;
 	}
-	p.gameTime += tick;
-	document.getElementById("gameTime").innerHTML = 'Time: ' + p.gameTime.formatHour();
+	w.player.gameTime += tick;
+	document.getElementById("gameTime").innerHTML = 'Time: ' + w.player.gameTime.formatHour();
 
 }
 
 function scoreLoop(tick) {
-	if (p.makers.length > 0) {
-		p.scoreSpeed = p.makers[0].amount * p.makers[0].mult * (1.1 ** p.prestige);
-		p.gameScore += p.makers[0].amount * p.makers[0].mult * tick * (1.1 ** p.prestige);
-		for (i = 1; i < p.makers.length; i++)	{
-				p.makers[i-1].amount += p.makers[i].amount * p.makers[i].mult * tick * (1.1 ** p.prestige);
+	if (w.player.makers.length > 0) {
+		w.player.scoreSpeed = w.player.makers[0].amount * w.player.makers[0].mult * (1.1 ** w.player.prestige);
+		w.player.gameScore += w.player.makers[0].amount * w.player.makers[0].mult * tick * (1.1 ** w.player.prestige);
+		for (i = 1; i < w.player.makers.length; i++)	{
+				w.player.makers[i-1].amount += w.player.makers[i].amount * w.player.makers[i].mult * tick * (1.1 ** w.player.prestige);
 		}
 	}
 }
 
 function updateGame() {
-	if (p.map === 'normalDims') {
-		document.getElementById("score").innerHTML = 'Atoms: ' + formatP(Math.round(p.gameScore));
-		document.getElementById("scoreSpeed").innerHTML = 'Speed: ' + formatP(Math.round(p.scoreSpeed*100)/100) + '/s';
-		for (i = 0; i < p.makers.length; i++){
-			bText = 'Make Atom Maker (' + formatP(Math.round(p.makers[i].cost*100)/100);
-			bText += ') Amount: ' + formatP(Math.round(p.makers[i].amount));
-			bText += ') Making: ' + formatP(Math.round(p.makers[i].amount * p.makers[i].mult*100)/100) + '/s';
+	if (w.player.map === 'normalDims') {
+		document.getElementById("score").innerHTML = 'Atoms: ' + formatP(Math.round(w.player.gameScore));
+		document.getElementById("scoreSpeed").innerHTML = 'Speed: ' + formatP(Math.round(w.player.scoreSpeed*100)/100) + '/s';
+		for (i = 0; i < w.player.makers.length; i++){
+			bText = 'Make Atom Maker (' + formatP(Math.round(w.player.makers[i].cost*100)/100);
+			bText += ') Amount: ' + formatP(Math.round(w.player.makers[i].amount));
+			bText += ') Making: ' + formatP(Math.round(w.player.makers[i].amount * w.player.makers[i].mult*100)/100) + '/s';
 			document.getElementById("maker"+i).innerHTML = bText;
-			document.getElementById("maker"+i).classList = p.makers[i].bought+"0%";
+			document.getElementById("maker"+i).classList = w.player.makers[i].bought+"0%";
 		}
 		saveState();
 	}
 }
 
 function saveState() {
-    user = JSON.stringify(p);
+    user = JSON.stringify(w.player);
     setCookie("infiniteGame", user, 365);
 }
 
 function buyAtom() {
-	p.gameScore ++;
+	w.player.gameScore ++;
 }
 
 function buyAtomMaker(i) {
-	if (p.gameScore >= p.makers[i].cost){
-		p.gameScore -= p.makers[i].cost;
-		p.makers[i].amount ++;
-		p.makers[i].bought ++;
-		p.makers[i].cost *= 1.25 + i;
-		if (p.makers[i].bought == 10) {
-			p.makers[i].mult *= 2;
-			p.makers[i].bought = 0;
+	if (w.player.gameScore >= w.player.makers[i].cost){
+		w.player.gameScore -= w.player.makers[i].cost;
+		w.player.makers[i].amount ++;
+		w.player.makers[i].bought ++;
+		w.player.makers[i].cost *= 1.25 + i;
+		if (w.player.makers[i].bought == 10) {
+			w.player.makers[i].mult *= 2;
+			w.player.makers[i].bought = 0;
 		}
-	if ((p.dimNum == (i+1) && p.dimNum < 3) || (p.dimNum == (i+p.prestige) && p.dimNum < p.maxDimNum)) {
-		console.log(p.dimNum);
-		p.dimNum ++;
-		buildGameMap(p.map);
-        console.log(p.dimNum);
+	if ((w.player.dimNum == (i+1) && w.player.dimNum < 3) || (w.player.dimNum == (i+w.player.prestige) && w.player.dimNum < w.player.maxDimNum)) {
+		console.log(w.player.dimNum);
+		w.player.dimNum ++;
+		buildGameMap(w.player.map);
+        console.log(w.player.dimNum);
 
 		}
 /*		console.log(w.gameScore);
@@ -123,35 +123,35 @@ function buyAtomMaker(i) {
 }
 
 function buyMax() {
-	for (i = p.makers.length-1; i > -1; i--) {
-		while (p.makers[i].cost < p.gameScore) {
+	for (i = w.player.makers.length-1; i > -1; i--) {
+		while (w.player.makers[i].cost < w.player.gameScore) {
 			buyAtomMaker(i);
 		}
 	}
 }
 
 function prestige() {
-	for (i = 0; i < p.makers.length; i ++) {
-		p.makers[i].amount = 0;
-		p.makers[i].bought = 0;
-		p.makers[i].cost = 10 + 1000 * i ** (2 + 3 * i * i);
-		p.makers[i].mult = 1 - (i / 10) + (i / 100);
-		/*p.gameScore = 0;*/
+	for (i = 0; i < w.player.makers.length; i ++) {
+		w.player.makers[i].amount = 0;
+		w.player.makers[i].bought = 0;
+		w.player.makers[i].cost = 10 + 1000 * i ** (2 + 3 * i * i);
+		w.player.makers[i].mult = 1 - (i / 10) + (i / 100);
+		/*w.player.gameScore = 0;*/
 	}
-	p.prestige ++;
-	if (p.prestige < 5 && p.maxDimNum < 8) {
-		p.maxDimNum ++;
+	w.player.prestige ++;
+	if (w.player.prestige < 5 && w.player.maxDimNum < 8) {
+		w.player.maxDimNum ++;
 	}
-	buildGameMap(p.map)
+	buildGameMap(w.player.map)
 }
 
 function restart() {
-	for (i = 0; i < p.makers.length; i ++) {
-		p.makers[i].amount = 0;
-		p.makers[i].bought = 0;
-		p.makers[i].cost = 10 + 1000 * i ** (2 + 3 * i * i);
-		p.makers[i].mult = 1 - (i / 10) + (i / 100);
-		p.gameScore = 0;
+	for (i = 0; i < w.player.makers.length; i ++) {
+		w.player.makers[i].amount = 0;
+		w.player.makers[i].bought = 0;
+		w.player.makers[i].cost = 10 + 1000 * i ** (2 + 3 * i * i);
+		w.player.makers[i].mult = 1 - (i / 10) + (i / 100);
+		w.player.gameScore = 0;
 	}
 }
 
@@ -186,9 +186,9 @@ function formatP(value) {
 }
 
 function checkUnlocks() {
-	var l = p.makers.length;
+	var l = w.player.makers.length;
 	if (l > 2) {
-		if (p.makers[(l-1)].amount >= 1) {
+		if (w.player.makers[(l-1)].amount >= 1) {
 			document.getElementById("prestige").classList.remove("disabled");
 			document.getElementById("prestige").innerHTML = '<i class="fa fa-unlock"></i> Prestige';
 			} else {
