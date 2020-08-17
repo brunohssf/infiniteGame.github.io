@@ -5,6 +5,7 @@ var oldTimeStamp, timeStamp = new Date().getTime(), gameTime = 0;
 var timeFactor = 1/1000;
 var logging = new Boolean(true);
 
+var p = w.player;
 w.player.oldScore = 0;
 w.player.scoreSpeed = 0;
 w.player.gameScore = 2000000000;
