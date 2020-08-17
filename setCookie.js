@@ -25,10 +25,13 @@ function checkCookie() {
 		w.player = JSON.parse(found);
 		console.log(player);
 	} else {
-		name = prompt("Please enter your name:", "");
-		if (name != "" && name != null) {
-		user = JSON.stringify(player);
-		setCookie("infiniteGame", user, 365);
+		if (1==2) {
+		} else {
+			name = prompt("Please enter your name:", "");
+			if (name != "" && name != null) {
+			user = JSON.stringify(player);
+			setCookie("infiniteGame", user, 365);
+			}
 		}
 	}
 }
