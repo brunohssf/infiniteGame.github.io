@@ -14,11 +14,7 @@ function buildGameMap(x) {
 	w.body = '<h1 id="score">Atoms: 0</h1><h6 id="scoreSpeed">Speed: 0</h6>';
 
 	if (w.player.map == 'normalDims') {
-		if (w.player.makers.length < w.player.dimNum) {
-			for (i = w.player.makers.length; i < w.player.dimNum; i++){
-				w.player.makers.push(makerBuilder(i));
-				}
-			}
+		fillMakers();
 		w.body = '<h1 id="score">Atoms: 0</h1><h6 id="scoreSpeed">Speed: 0</h6>';
 		w.body = w.body + '<button onClick="buyAtom();" type="button">Make Atom</button>';
 		for (i = 0; i < w.player.makers.length; i++){
@@ -115,7 +111,7 @@ function buyAtomMaker(i) {
 			w.player.makers[i].mult *= 2;
 			w.player.makers[i].bought = 0;
 		}
-	if ((w.player.dimNum == (i+1) && w.player.dimNum < 3) || (w.player.dimNum == (i+w.player.prestige) && w.player.dimNum < w.player.maxDimNum)) {
+	if ((w.player.maxDimNum > i) && (w.player.dimNum < w.player.maxDimNum)) {
 		console.log(w.player.dimNum);
 		w.player.dimNum ++;
 		buildGameMap(w.player.map);
@@ -146,8 +142,8 @@ function prestige() {
 		/*w.player.gameScore = 0;*/
 	}
 	w.player.prestige ++;
-	if (w.player.prestige < 5 && w.player.maxDimNum < 8) {
-		w.player.maxDimNum ++;
+	if (w.player.maxDimNum < 8) {
+		w.player.maxDimNum = w.player.prestige + 3;
 	}
 	buildGameMap(w.player.map)
 }
@@ -190,6 +186,14 @@ function formatP(value) {
 		return value
 	}
 
+}
+
+function fillMakers() {
+	if (w.player.makers.length < w.player.maxDimNum) {
+		for (i = w.player.makers.length; i < w.player.dimNum; i++){
+			w.player.makers.push(makerBuilder(i));
+		}
+	}
 }
 
 function checkUnlocks() {
