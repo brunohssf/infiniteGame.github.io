@@ -3,7 +3,8 @@ function makerBuilder(i) {
 	cost: 10 + 10000 * i ** (2 + 3 * i * i) - 9000 * i,
 	amount: 0,
 	bought: 0,
-	mult: 1 - (i / 10) + (i / 100)
+	mult: 1 - (i / 10) + (i / 100),
+	upgradeMulti: 1
 	}
 	return maker;
 }
@@ -17,18 +18,20 @@ function buildGameMap(x) {
 		fillMakers();
 		w.body = '<h1 id="score">Atoms: 0</h1><h6 id="scoreSpeed">Speed: 0</h6>';
 		w.body = w.body + '<button onClick="buyAtom();" type="button">Make Atom</button>';
-		for (i = 0; i < w.player.makers.length; i++){
+		for (i = 0; i < w.player.dimNum; i++){
 			w.body = w.body + '<button id="maker'+i+'" class="00%" onClick="buyAtomMaker('+i+');" ><div id="maker'+i+'Bar" class="progressBar"></div>Make Atom Maker ('+w.player.makers[i].cost+')</div>';
 
 		}
 		w.body = w.body + '<button id="prestige" onClick="prestige();" type="button">Prestige</button>';
 		w.body = w.body + '<button id="buyMax" onClick="buyMax();" type="button">Buy Max!</button>';
-		w.body = w.body + '<h3 id="gameTime">Tempo: 00:00:00</h3>';
 
 	} else if (w.player.map == 'upgrades') {
-		for (i = 0; i < w.upgrades.length; i++) {
+		for (i = 0; i < upgradeList.length; i++) {
+			w.body = w.body + '<button id="'+upgradeList[i].name+'" onClick="buyUpgrade(""'+upgradeList[i].name+'"");" ><div id="maker'+i+'Bar" class="progressBar"></div>Make Atom Maker ('+w.player.makers[i].cost+')</div>';
 		}
 	}
+	w.body = w.body + '<h3 id="gameTime">Tempo: 00:00:00</h3>';
+
 	var menu = '';
 	menu = menu + '<button id="log" onClick="logOnOff();" type="button">LogOnOff</button>';
 	menu = menu + '<button id="normalDims" onClick="buildGameMap(\'normalDims\');" type="button">Normal Dimensios</button>';
@@ -69,10 +72,10 @@ function gameLoop() {
 
 function scoreLoop(tick) {
 	if (w.player.makers.length > 0) {
-		w.player.scoreSpeed = w.player.makers[0].amount * w.player.makers[0].mult * (1.1 ** w.player.prestige);
-		w.player.gameScore += w.player.makers[0].amount * w.player.makers[0].mult * tick * (1.1 ** w.player.prestige);
+		w.player.scoreSpeed = w.player.makers[0].amount * w.player.makers[0].mult * w.player.makers[0].upgradeMulti * (1.1 ** w.player.prestige);
+		w.player.gameScore += w.player.makers[0].amount * w.player.makers[0].mult * w.player.makers[0].upgradeMulti * (1.1 ** w.player.prestige) * tick;
 		for (i = 1; i < w.player.makers.length; i++)	{
-				w.player.makers[i-1].amount += w.player.makers[i].amount * w.player.makers[i].mult * tick * (1.1 ** w.player.prestige);
+				w.player.makers[i-1].amount += w.player.makers[i].amount * w.player.makers[i].mult * w.player.makers[0].upgradeMulti * tick * (1.1 ** w.player.prestige);
 		}
 	}
 }
@@ -81,7 +84,7 @@ function updateGame() {
 		document.getElementById("score").innerHTML = 'Atoms: ' + formatP(Math.round(w.player.gameScore));
 		document.getElementById("scoreSpeed").innerHTML = 'Speed: ' + formatP(Math.round(w.player.scoreSpeed*100)/100) + '/s';
 	if (w.player.map == 'normalDims') {
-		for (i = 0; i < w.player.makers.length; i++){
+		for (i = 0; i < w.player.dimNum; i++){
 			bText = 'Make Atom Maker (' + formatP(Math.round(w.player.makers[i].cost*100)/100);
 			bText += ') Amount: ' + formatP(Math.round(w.player.makers[i].amount));
 			bText += ') Making: ' + formatP(Math.round(w.player.makers[i].amount * w.player.makers[i].mult*100)/100) + '/s';
@@ -141,6 +144,7 @@ function prestige() {
 		w.player.makers[i].mult = 1 - (i / 10) + (i / 100);
 		/*w.player.gameScore = 0;*/
 	}
+	w.player.dimNum = 3;
 	w.player.prestige ++;
 	if (w.player.maxDimNum < 8) {
 		w.player.maxDimNum = w.player.prestige + 3;
@@ -193,6 +197,12 @@ function fillMakers() {
 		for (i = w.player.makers.length; i < w.player.dimNum; i++){
 			w.player.makers.push(makerBuilder(i));
 		}
+	}
+}
+
+function fillUpgrades() {
+	for (i = 1; i < w.player.upgrades.length; i++){
+		upgrade = upgradesList.find(x => x.name === w.player.upgrades[i].name);
 	}
 }
 
