@@ -4,7 +4,7 @@ function makerBuilder(i) {
 	amount: 0,
 	bought: 0,
 	mult: 1 - (i / 10) + (i / 100),
-	upgradeMulti: 1
+	upgradeMult: 1
 	}
 	return maker;
 }
@@ -26,8 +26,9 @@ function buildGameMap(x) {
 		w.body = w.body + '<button id="buyMax" onClick="buyMax();" type="button">Buy Max!</button>';
 
 	} else if (w.player.map == 'upgrades') {
-		for (i = 0; i < upgradeList.length; i++) {
-			w.body = w.body + '<button id="'+upgradeList[i].name+'" onClick="buyUpgrade(""'+upgradeList[i].name+'"");" ><div id="maker'+i+'Bar" class="progressBar"></div>Make Atom Maker ('+w.player.makers[i].cost+')</div>';
+		uL = w.player.upgradeList;
+		for (i = 0; i < uL.length; i++) {
+			w.body = w.body + '<button id="'+uL[i].name+'" onClick="buyUpgrade(\''+ uL[i].id +'\');" >'+uL[i].name+'</br>'+formatP(Math.round(uL[i].baseCost * uL[i].costMult ** uL[i].bougth))+'</button>';
 		}
 	}
 	w.body = w.body + '<h3 id="gameTime">Tempo: 00:00:00</h3>';
@@ -35,7 +36,7 @@ function buildGameMap(x) {
 	var menu = '';
 	menu = menu + '<button id="log" onClick="logOnOff();" type="button">LogOnOff</button>';
 	menu = menu + '<button id="normalDims" onClick="buildGameMap(\'normalDims\');" type="button">Normal Dimensios</button>';
-	menu = menu + '<button id="upgrades" onClick="buildGameMap(\'updagres\');" type="button">Upgrades</button>';
+	menu = menu + '<button id="upgrades" onClick="buildGameMap(\'upgrades\');" type="button">Upgrades</button>';
 	if (w.player.user == "name") {
 		menu = menu + '<button id="restart" onClick="restart();" type="button">Restart</button>';
 	}
@@ -72,10 +73,10 @@ function gameLoop() {
 
 function scoreLoop(tick) {
 	if (w.player.makers.length > 0) {
-		w.player.scoreSpeed = w.player.makers[0].amount * w.player.makers[0].mult * w.player.makers[0].upgradeMulti * (1.1 ** w.player.prestige);
-		w.player.gameScore += w.player.makers[0].amount * w.player.makers[0].mult * w.player.makers[0].upgradeMulti * (1.1 ** w.player.prestige) * tick;
+		w.player.scoreSpeed = w.player.makers[0].amount * w.player.makers[0].mult * w.player.makers[0].upgradeMult * (1.1 ** w.player.prestige);
+		w.player.gameScore += w.player.makers[0].amount * w.player.makers[0].mult * w.player.makers[0].upgradeMult * (1.1 ** w.player.prestige) * tick;
 		for (i = 1; i < w.player.makers.length; i++)	{
-				w.player.makers[i-1].amount += w.player.makers[i].amount * w.player.makers[i].mult * w.player.makers[0].upgradeMulti * tick * (1.1 ** w.player.prestige);
+				w.player.makers[i-1].amount += w.player.makers[i].amount * w.player.makers[i].mult * w.player.makers[0].upgradeMult * tick * (1.1 ** w.player.prestige);
 		}
 	}
 }
@@ -201,8 +202,33 @@ function fillMakers() {
 }
 
 function fillUpgrades() {
-	for (i = 1; i < w.player.upgrades.length; i++){
-		upgrade = upgradesList.find(x => x.name === w.player.upgrades[i].name);
+	for (i = 0; i < w.player.makers.length; i++) {
+		w.player.upgradeMult = 1;
+	}
+	for (i = 0; i < w.player.upgradeList.length; i++) {
+		upgrade = w.player.upgradeList[i];
+		console.log(upgrade);
+		for (i = 0; i < upgrade.dims.length; i++) {
+			if (upgrade.dims[i] < w.player.maxDimNum) {
+				console.log(i);
+				indx = upgrade.dims[i];
+				w.player.makers[indx].upgradeMult *= upgrade.factor ** upgrade.bougth;
+			}
+		}
+	}
+}
+
+function buyUpgrade(upID) {
+	upgrade = w.player.upgradeList.find(x => x.id === upID);
+
+	if ((w.player.gameScore >= upgrade.baseCost * upgrade.costMult ** upgrade.bougth) && ((upgrade.bougth < upgrade.maxCount) || (upgrade.maxCount === 0))) {
+/*		if (w.player.upgrades.find(upgrade.id) == false) {
+			w.player.upgrades.push(upgrade.id);
+		}*/
+		w.player.gameScore -= upgrade.baseCost * upgrade.costMult ** upgrade.bougth;
+		upgrade.bougth ++;
+	fillUpgrades();
+	buildGameMap('upgrades')
 	}
 }
 

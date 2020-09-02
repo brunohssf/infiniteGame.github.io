@@ -10,12 +10,12 @@ w.player.map = 'normalDims';
 w.player.user = "name";
 w.player.gameTime = 0;
 w.player.oldScore = 0;
-w.player.gameScore = 0;
+w.player.gameScore = 10;
 w.player.scoreSpeed = 0;
 w.player.maxDimNum = 3;
 w.player.dimNum = 3;
 w.player.prestige = 0;
 w.player.makers = [];
-w.player.upgrades = []
+w.player.upgrades = [];
 
 w.player.gID = 0;
