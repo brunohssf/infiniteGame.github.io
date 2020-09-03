@@ -1,3 +1,12 @@
+:root {
+	--color-base-1: #001111;
+	--color-button-normalDims: #113311;
+	--color-button-upgrades: #333333;
+	--color-button-upgrades-bougth: #999999;
+	--color-progressBar-1:#777777/*rgba(135,134,149,1)*/;
+	--color-progressBar-2:#113311/*rgba(0,0,0,1)*/;
+}
+
 * {
 	padding:0;
 	margin:0;
@@ -5,7 +14,7 @@
 }
 
 body {
-	background-color:black;
+	background-color:var(--color-base-1);
 	text-align:center;
 	padding-top:16px;
 }
@@ -30,31 +39,31 @@ button	{
 }
 
 button[class$="10%"] {
-	background:linear-gradient(90deg, rgba(135,134,149,1) 0%, rgba(135,134,149,1) 10%, rgba(0,0,0,1) 10%, rgba(0,0,0,1) 100%) !important;
+	background:linear-gradient(90deg, var(--color-progressBar-1) 0%, var(--color-progressBar-1) 10%, var(--color-progressBar-2) 10%, var(--color-progressBar-2) 100%) !important;
 }	
 button[class$="20%"] {
-	background:linear-gradient(90deg, rgba(135,134,149,1) 0%, rgba(135,134,149,1) 20%, rgba(0,0,0,1) 20%, rgba(0,0,0,1) 100%) !important;
+	background:linear-gradient(90deg, var(--color-progressBar-1) 0%, var(--color-progressBar-1) 20%, var(--color-progressBar-2) 20%, var(--color-progressBar-2) 100%) !important;
 }	
 button[class$="30%"] {
-	background:linear-gradient(90deg, rgba(135,134,149,1) 0%, rgba(135,134,149,1) 30%, rgba(0,0,0,1) 30%, rgba(0,0,0,1) 100%) !important;
+	background:linear-gradient(90deg, var(--color-progressBar-1) 0%, var(--color-progressBar-1) 30%, var(--color-progressBar-2) 30%, var(--color-progressBar-2) 100%) !important;
 }	
 button[class$="40%"] {
-	background:linear-gradient(90deg, rgba(135,134,149,1) 0%, rgba(135,134,149,1) 40%, rgba(0,0,0,1) 40%, rgba(0,0,0,1) 100%) !important;
+	background:linear-gradient(90deg, var(--color-progressBar-1) 0%, var(--color-progressBar-1) 40%, var(--color-progressBar-2) 40%, var(--color-progressBar-2) 100%) !important;
 }	
 button[class$="50%"] {
-	background:linear-gradient(90deg, rgba(135,134,149,1) 0%, rgba(135,134,149,1) 50%, rgba(0,0,0,1) 50%, rgba(0,0,0,1) 100%) !important;
+	background:linear-gradient(90deg, var(--color-progressBar-1) 0%, var(--color-progressBar-1) 50%, var(--color-progressBar-2) 50%, var(--color-progressBar-2) 100%) !important;
 }	
 button[class$="60%"] {
-	background:linear-gradient(90deg, rgba(135,134,149,1) 0%, rgba(135,134,149,1) 60%, rgba(0,0,0,1) 60%, rgba(0,0,0,1) 100%) !important;
+	background:linear-gradient(90deg, var(--color-progressBar-1) 0%, var(--color-progressBar-1) 60%, var(--color-progressBar-2) 60%, var(--color-progressBar-2) 100%) !important;
 }	
 button[class$="70%"] {
-	background:linear-gradient(90deg, rgba(135,134,149,1) 0%, rgba(135,134,149,1) 70%, rgba(0,0,0,1) 70%, rgba(0,0,0,1) 100%) !important;
+	background:linear-gradient(90deg, var(--color-progressBar-1) 0%, var(--color-progressBar-1) 70%, var(--color-progressBar-2) 70%, var(--color-progressBar-2) 100%) !important;
 }	
 button[class$="80%"] {
-	background:linear-gradient(90deg, rgba(135,134,149,1) 0%, rgba(135,134,149,1) 80%, rgba(0,0,0,1) 80%, rgba(0,0,0,1) 100%) !important;
+	background:linear-gradient(90deg, var(--color-progressBar-1) 0%, var(--color-progressBar-1) 80%, var(--color-progressBar-2) 80%, var(--color-progressBar-2) 100%) !important;
 }	
 button[class$="90%"] {
-	background:linear-gradient(90deg, rgba(135,134,149,1) 0%, rgba(135,134,149,1) 90%, rgba(0,0,0,1) 90%, rgba(0,0,0,1) 100%) !important;
+	background:linear-gradient(90deg, var(--color-progressBar-1) 0%, var(--color-progressBar-1) 90%, var(--color-progressBar-2) 90%, var(--color-progressBar-2) 100%) !important;
 }	
 button[class$="00%"] {
 	background:black !important;
@@ -176,6 +185,7 @@ button.disabled {
 	display: block;
 	margin: 1% 1% !important;
 	clear: right;
+	background-color: var(--color-button-upgrades)
 }
 
 #gameTime {
