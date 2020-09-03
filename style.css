@@ -169,3 +169,26 @@ button.disabled {
 	color: white !important;
 	text-decoration-color: white;*/
 }
+
+.upgradeButton {
+	width: 48%;
+	float: left;
+	display: block;
+	margin: 1% 1% !important;
+	clear: right;
+}
+
+#gameTime {
+	float: left;
+	display: block;
+	clear: both;
+	width: 100%;
+}
+
+#upgradeList {
+	display:flex;
+}
+
+#menu {
+	display:flex;
+}

@@ -13,13 +13,13 @@ function buildGameMap(x) {
 
 	w.player.map = x;
 	w.body = '<h1 id="score">Atoms: 0</h1><h6 id="scoreSpeed">Speed: 0</h6>';
+	w.body = w.body + '<div id="map">';
 
 	if (w.player.map == 'normalDims') {
 		fillMakers();
-		w.body = '<h1 id="score">Atoms: 0</h1><h6 id="scoreSpeed">Speed: 0</h6>';
 		w.body = w.body + '<button onClick="buyAtom();" type="button">Make Atom</button>';
 		for (i = 0; i < w.player.dimNum; i++){
-			w.body = w.body + '<button id="maker'+i+'" class="00%" onClick="buyAtomMaker('+i+');" ><div id="maker'+i+'Bar" class="progressBar"></div>Make Atom Maker ('+w.player.makers[i].cost+')</div>';
+			w.body = w.body + '<button id="maker'+i+'" class="00%" onClick="buyAtomMaker('+i+');" ><div id="maker'+i+'Bar" class="progressBar">Make Atom Maker ('+w.player.makers[i].cost+')</div>';
 
 		}
 		w.body = w.body + '<button id="prestige" onClick="prestige();" type="button">Prestige</button>';
@@ -27,11 +27,12 @@ function buildGameMap(x) {
 
 	} else if (w.player.map == 'upgrades') {
 		uL = w.player.upgradeList;
+		w.body = w.body + '<div id="upgradeList">'
 		for (i = 0; i < uL.length; i++) {
-			w.body = w.body + '<button id="'+uL[i].name+'" onClick="buyUpgrade(\''+ uL[i].id +'\');" >'+uL[i].name+'</br>'+formatP(Math.round(uL[i].baseCost * uL[i].costMult ** uL[i].bougth))+'</button>';
+			w.body = w.body + '<button id="'+uL[i].name+'" class="upgradeButton" onClick="buyUpgrade(\''+ uL[i].id +'\');" ><h3>'+uL[i].name+'</h3><h5>'+uL[i].descr+'</h5><h6>Cost:'+formatP(Math.round(uL[i].baseCost * uL[i].costMult ** uL[i].bougth))+'</h6></button>';
 		}
 	}
-	w.body = w.body + '<h3 id="gameTime">Tempo: 00:00:00</h3>';
+	w.body = w.body + '</div></div><h3 id="gameTime">Tempo: 00:00:00</h3>';
 
 	var menu = '';
 	menu = menu + '<button id="log" onClick="logOnOff();" type="button">LogOnOff</button>';
