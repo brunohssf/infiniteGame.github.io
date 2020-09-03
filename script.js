@@ -47,7 +47,7 @@ function buildGameMap(x) {
 	document.getElementById("game").innerHTML = w.body;
 	document.getElementById("menu").innerHTML = menu;
 	console.log(w.player.gameScore);
-	renderButton();
+
 }
 
 function gameLoop() {
