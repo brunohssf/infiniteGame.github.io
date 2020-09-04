@@ -10,7 +10,7 @@ w.player.upgradeList[0] = {
 	bougth: 0,
 	baseCost: 2e5,
 	costMult: 1e5,
-	maxCount: 20
+	maxCount: 0
 }
 
 w.player.upgradeList[1] = {

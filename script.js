@@ -3,7 +3,7 @@ function makerBuilder(i) {
 	cost: 10 + 10000 * i ** (2 + 3 * i * i) - 9000 * i,
 	amount: 0,
 	bought: 0,
-	mult: 1 - (i / 10) + (i / 100),
+	mult: 1 / (1 + i) ** i,
 	upgradeMult: 1
 	}
 	return maker;
