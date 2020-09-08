@@ -97,7 +97,7 @@ function updateGame() {
 		for (i = 0; i < w.player.dimNum; i++){
 			bText = 'Make Atom Maker (' + formatP(Math.round(w.player.makers[i].cost*100)/100);
 			bText += ') Amount: ' + formatP(Math.round(w.player.makers[i].amount));
-			bText += ') Making: ' + formatP(Math.round(w.player.makers[i].amount * w.player.makers[i].mult*100)/100) + '/s';
+			bText += ') Making: ' + formatP(Math.round(w.player.makers[i].amount * w.player.makers[i].mult * w.player.makers[i].upgradeMult * (1.1 ** w.player.prestige)*100)/100) + '/s';
 			document.getElementById("maker"+i).innerHTML = bText;
 			document.getElementById("maker"+i).classList = w.player.makers[i].bought+"0%";
 		}
@@ -151,7 +151,7 @@ function prestige() {
 		w.player.makers[i].amount = 0;
 		w.player.makers[i].bought = 0;
 		w.player.makers[i].cost = 10 + 10000 * i ** (2 + 3 * i * i) - 9000 * i;
-		w.player.makers[i].mult = 1 / (1 + i) ** (1 + (i ** 2) / 2);
+		/*w.player.makers[i].mult = 1 / (1 + i) ** (1 + (i ** 2) / 2);*/
 		/*w.player.gameScore = 0;*/
 	}
 	w.player.dimNum = 3;
