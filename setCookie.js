@@ -22,7 +22,14 @@ function checkCookie() {
 	if (found != "") {
 		console.log(found);
 		console.log(player);
-		w.player = JSON.parse(found);
+		playerSave = JSON.parse(found);
+		if (w.player.upgradeList.length == playerSave.upgradeList.length) {
+			w.player = playerSave;
+		} else {
+			for (i = playerSave.upgradeList.length; i < w.player.upgradeList.length; i++) {
+				playerSave.push(w.player.upgradeList[i+1]);
+			}
+		}
 		console.log(player);
 	} else {
 		if (1 > 2) {
