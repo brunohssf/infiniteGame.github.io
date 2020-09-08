@@ -5,6 +5,7 @@
 	--color-button-upgrades-bougth: #999999;
 	--color-progressBar-1:#777777/*rgba(135,134,149,1)*/;
 	--color-progressBar-2:#111111/*rgba(0,0,0,1)*/;
+	--color-button-upgrades-complete:darkgoldenrod;
 }
 
 * {
@@ -185,7 +186,7 @@ button.disabled {
 	display: block;
 	margin: 1% 1% !important;
 	clear: right;
-	background-color: var(--color-button-upgrades)
+	background-color: var(--color-button-upgrades);
 }
 
 #gameTime {
@@ -200,4 +201,8 @@ button.disabled {
 }
 
 #menu {
+}
+
+.upgradeComplete {
+	background-color: var(--color-button-upgrades-complete);
 }

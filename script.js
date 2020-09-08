@@ -3,7 +3,7 @@ function makerBuilder(i) {
 	cost: 10 + 10000 * i ** (2 + 3 * i * i) - 9000 * i,
 	amount: 0,
 	bought: 0,
-	mult: 1 / (1 + i) ** i,
+	mult: 1 / (1 + i) ** (1 + (i ** 2) / 2),
 	upgradeMult: 1
 	}
 	return maker;
@@ -29,7 +29,14 @@ function buildGameMap(x) {
 		uL = w.player.upgradeList;
 		w.body = w.body + '<div id="upgradeList">'
 		for (i = 0; i < uL.length; i++) {
-			w.body = w.body + '<button id="'+uL[i].name+'" class="upgradeButton" onClick="buyUpgrade(\''+ uL[i].id +'\');" ><h3>'+uL[i].name+'</h3><h5>'+uL[i].descr+'</h5><h6>Cost:'+formatP(Math.round(uL[i].baseCost * uL[i].costMult ** uL[i].bougth))+'</h6></button>';
+			if ((uL[i].bougth === uL[i].maxCount) && (uL[i].maxCount !== 0)) {
+				uStatus = 'upgradeComplete';
+				uCost = '';
+			} else {
+				uStatus = '';
+				uCost = 'Cost: '+formatP(Math.round(uL[i].baseCost * uL[i].costMult ** uL[i].bougth));
+			}
+			w.body = w.body + '<button id="'+uL[i].name+'" class="upgradeButton '+uStatus+'" onClick="buyUpgrade(\''+ uL[i].id +'\');" ><h3>'+uL[i].name+'</h3><h5>'+uL[i].descr+'</h5><h6>'+uCost+'</h6></button>';
 		}
 	}
 	w.body = w.body + '</div></div><h3 id="gameTime">Tempo: 00:00:00</h3>';
@@ -144,7 +151,7 @@ function prestige() {
 		w.player.makers[i].amount = 0;
 		w.player.makers[i].bought = 0;
 		w.player.makers[i].cost = 10 + 10000 * i ** (2 + 3 * i * i) - 9000 * i;
-		w.player.makers[i].mult = 1 - (i / 10) + (i / 100);
+		w.player.makers[i].mult = 1 / (1 + i) ** (1 + (i ** 2) / 2);
 		/*w.player.gameScore = 0;*/
 	}
 	w.player.dimNum = 3;
@@ -205,7 +212,7 @@ function fillMakers() {
 
 function fillUpgrades() {
 	for (i = 0; i < w.player.makers.length; i++) {
-		w.player.upgradeMult = 1;
+		w.player.makers[i].upgradeMult = 1;
 	}
 	for (i = 0; i < w.player.upgradeList.length; i++) {
 		upgrade = w.player.upgradeList[i];
