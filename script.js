@@ -53,7 +53,7 @@ function buildGameMap(x) {
 
 	document.getElementById("game").innerHTML = w.body;
 	document.getElementById("menu").innerHTML = menu;
-	console.log(w.player.gameScore);
+	/*console.log(w.player.gameScore);*/
 
 }
 
@@ -69,9 +69,9 @@ function gameLoop() {
 	updateGame();
 	w.requestAnimationFrame(gameLoop);
 	w.lastTick = tempo;
-	if (tick > 1) {
+/*	if (tick > 1) {
 		console.log(tickCount);
-	}
+	}*/
 	if ((w.scoreSpeed > 0) && (w.logging == true)) {
 		w.tickCount ++;
 	}
