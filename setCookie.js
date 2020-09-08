@@ -20,17 +20,19 @@ function getCookie(cname) {
 function checkCookie() {
 	var found = getCookie("infiniteGame");
 	if (found != "") {
-		console.log(found);
-		console.log(player);
+/*		console.log(found);*/
+/*		console.log(player);*/
 		playerSave = JSON.parse(found);
 		if (w.player.upgradeList.length == playerSave.upgradeList.length) {
 			w.player = playerSave;
 		} else {
 			for (i = playerSave.upgradeList.length; i < w.player.upgradeList.length; i++) {
 				playerSave.push(w.player.upgradeList[i+1]);
+
 			}
+			w.player = playerSave;
 		}
-		console.log(player);
+/*		console.log(player);*/
 	} else {
 		if (1 > 2) {
 		} else {
