@@ -3,10 +3,20 @@ function makerBuilder(i) {
 	cost: 10 + 10000 * i ** (2 + 3 * i * i) - 9000 * i,
 	amount: 0,
 	bought: 0,
-	mult: 1 / (1 + i) ** (1 + (i ** 2) / 2),
+	mult: 1 + 1 / (10000 + (i ** (10 * i))),
 	upgradeMult: 1
 	}
 	return maker;
+}
+
+function restart() {
+	for (i = 0; i < w.player.makers.length; i ++) {
+		w.player.makers[i].amount = 0;
+		w.player.makers[i].bought = 0;
+		w.player.makers[i].cost = 10 + 10000 * i ** (2 + 3 * i * i) - 9000 * i;
+		w.player.makers[i].mult = 1 + 1 / (10000 + (i ** (10 * i)));
+		w.player.gameScore = 0;
+	}
 }
 
 function buildGameMap(x) {
@@ -17,7 +27,7 @@ function buildGameMap(x) {
 
 	if (w.player.map == 'normalDims') {
 		fillMakers();
-		w.body = w.body + '<button onClick="buyAtom();" type="button">Make Atom</button>';
+		w.body = w.body + '<button onClick="buyAtom();" class="atomButton" type="button">Make Atom</button>';
 		for (i = 0; i < w.player.dimNum; i++){
 			w.body = w.body + '<button id="maker'+i+'" class="00%" onClick="buyAtomMaker('+i+');" ><div id="maker'+i+'Bar" class="progressBar">Make Atom Maker ('+w.player.makers[i].cost+')</div>';
 
@@ -31,9 +41,9 @@ function buildGameMap(x) {
 		for (i = 0; i < uL.length; i++) {
 			if ((uL[i].bougth === uL[i].maxCount) && (uL[i].maxCount !== 0)) {
 				uStatus = 'upgradeComplete';
-				uCost = '';
+				uCost = ' ';
 			} else {
-				uStatus = '';
+				uStatus = ' ';
 				uCost = 'Cost: '+formatP(Math.round(uL[i].baseCost * uL[i].costMult ** uL[i].bougth));
 			}
 			w.body = w.body + '<button id="'+uL[i].name+'" class="upgradeButton '+uStatus+'" onClick="buyUpgrade(\''+ uL[i].id +'\');" ><h3>'+uL[i].name+'</h3><h5>'+uL[i].descr+'</h5><h6>'+uCost+'</h6></button>';
@@ -85,7 +95,7 @@ function scoreLoop(tick) {
 		w.player.scoreSpeed = w.player.makers[0].amount * w.player.makers[0].mult * w.player.makers[0].upgradeMult * (1.1 ** w.player.prestige);
 		w.player.gameScore += w.player.makers[0].amount * w.player.makers[0].mult * w.player.makers[0].upgradeMult * (1.1 ** w.player.prestige) * tick;
 		for (i = 1; i < w.player.makers.length; i++)	{
-				w.player.makers[i-1].amount += w.player.makers[i].amount * w.player.makers[i].mult * w.player.makers[0].upgradeMult * tick * (1.1 ** w.player.prestige);
+				w.player.makers[i-1].amount += w.player.makers[i].amount * w.player.makers[i].mult * w.player.makers[0].upgradeMult * tick;
 		}
 	}
 }
@@ -95,11 +105,11 @@ function updateGame() {
 		document.getElementById("scoreSpeed").innerHTML = 'Speed: ' + formatP(Math.round(w.player.scoreSpeed*100)/100) + '/s';
 	if (w.player.map == 'normalDims') {
 		for (i = 0; i < w.player.dimNum; i++){
-			bText = 'Make Atom Maker (' + formatP(Math.round(w.player.makers[i].cost*100)/100);
-			bText += ') Amount: ' + formatP(Math.round(w.player.makers[i].amount));
-			bText += ') Making: ' + formatP(Math.round(w.player.makers[i].amount * w.player.makers[i].mult * w.player.makers[i].upgradeMult * (1.1 ** w.player.prestige)*100)/100) + '/s';
+			bText = 'Make Atom Maker Amount: ' + formatP(Math.round(w.player.makers[i].amount));
+			bText += ' Making: ' + formatP(Math.round(w.player.makers[i].amount * w.player.makers[i].mult * w.player.makers[i].upgradeMult * (1.1 ** w.player.prestige)*100)/100) + '/s';
+			bText += ' Cost: ' + formatP(Math.round(w.player.makers[i].cost*100)/100) + '</h6>';
 			document.getElementById("maker"+i).innerHTML = bText;
-			document.getElementById("maker"+i).classList = w.player.makers[i].bought+"0%";
+			document.getElementById("maker"+i).classList = 'prog'+w.player.makers[i].bought+'0pct makerButton';
 		}
 	}
 	saveState();
@@ -119,7 +129,7 @@ function buyAtomMaker(i) {
 		w.player.gameScore -= w.player.makers[i].cost;
 		w.player.makers[i].amount ++;
 		w.player.makers[i].bought ++;
-		w.player.makers[i].cost *= 1.25 + i;
+		w.player.makers[i].cost *= 1.35 + (i / 5);
 		if (w.player.makers[i].bought == 10) {
 			w.player.makers[i].mult *= 2;
 			w.player.makers[i].bought = 0;
@@ -152,7 +162,7 @@ function prestige() {
 		w.player.makers[i].bought = 0;
 		w.player.makers[i].cost = 10 + 10000 * i ** (2 + 3 * i * i) - 9000 * i;
 		/*w.player.makers[i].mult = 1 / (1 + i) ** (1 + (i ** 2) / 2);*/
-		/*w.player.gameScore = 0;*/
+		w.player.gameScore = 0;
 	}
 	w.player.dimNum = 3;
 	w.player.prestige ++;
@@ -160,16 +170,6 @@ function prestige() {
 		w.player.maxDimNum = w.player.prestige + 3;
 	}
 	buildGameMap(w.player.map)
-}
-
-function restart() {
-	for (i = 0; i < w.player.makers.length; i ++) {
-		w.player.makers[i].amount = 0;
-		w.player.makers[i].bought = 0;
-		w.player.makers[i].cost = 10 + 10000 * i ** (2 + 3 * i * i) - 9000 * i;
-		w.player.makers[i].mult = 1 - (i / 10) + (i / 100);
-		w.player.gameScore = 0;
-	}
 }
 
 function logOnOff() {

@@ -15,18 +15,46 @@
 }
 
 body {
-	background-color:var(--color-base-1);
-	text-align:center;
-	padding-top:16px;
+	background-color: var(--color-base-1);
+	text-align: center;
+	padding-top: 16px;
+	display: grid;
+	min-height: calc(100vh - 120px);
+	grid-gap: 1%;
+	grid-template-columns: 24% 48% 24%;
+	grid-template-rows: 1fr 0;
+	grid-template-areas: 
+		'a b c'
+		'd d d';
+}
+
+.sideNav {
+	width: 32px;
+	height: 32px;
+	margin: 0 calc(25% - 40px) 0 8px;
+	display: block;
+	float: left;
+	text-align: initial;
+	padding:0;
+	overflow:hidden;
+	transition: 0.4s;
+	grid-area: a;
 }
 
 .game {
-	width:50%;
-	min-width:300px;
-	display:block;
-	float:left;
+	width: 100%;
+	min-width: 300px;
+	display: block;
+	grid-area: b;
 }
-	
+
+footer {
+	width: -webkit-fill-available;
+	padding: 16px;
+	grid-area:d;
+	bottom:0;
+}
+
 button	{
 	cursor: pointer;
 	padding:4px;
@@ -39,35 +67,35 @@ button	{
 	margin:8px auto;
 }
 
-button[class$="10%"] {
+.prog00pct {
+	background:--color-progressBar-2;
+}	
+.prog10pct {
 	background:linear-gradient(90deg, var(--color-progressBar-1) 0%, var(--color-progressBar-1) 10%, var(--color-progressBar-2) 10%, var(--color-progressBar-2) 100%) !important;
 }	
-button[class$="20%"] {
+.prog20pct {
 	background:linear-gradient(90deg, var(--color-progressBar-1) 0%, var(--color-progressBar-1) 20%, var(--color-progressBar-2) 20%, var(--color-progressBar-2) 100%) !important;
 }	
-button[class$="30%"] {
+.prog30pct {
 	background:linear-gradient(90deg, var(--color-progressBar-1) 0%, var(--color-progressBar-1) 30%, var(--color-progressBar-2) 30%, var(--color-progressBar-2) 100%) !important;
 }	
-button[class$="40%"] {
+.prog40pct {
 	background:linear-gradient(90deg, var(--color-progressBar-1) 0%, var(--color-progressBar-1) 40%, var(--color-progressBar-2) 40%, var(--color-progressBar-2) 100%) !important;
 }	
-button[class$="50%"] {
+.prog50pct {
 	background:linear-gradient(90deg, var(--color-progressBar-1) 0%, var(--color-progressBar-1) 50%, var(--color-progressBar-2) 50%, var(--color-progressBar-2) 100%) !important;
 }	
-button[class$="60%"] {
+.prog60pct {
 	background:linear-gradient(90deg, var(--color-progressBar-1) 0%, var(--color-progressBar-1) 60%, var(--color-progressBar-2) 60%, var(--color-progressBar-2) 100%) !important;
 }	
-button[class$="70%"] {
+.prog70pct {
 	background:linear-gradient(90deg, var(--color-progressBar-1) 0%, var(--color-progressBar-1) 70%, var(--color-progressBar-2) 70%, var(--color-progressBar-2) 100%) !important;
 }	
-button[class$="80%"] {
+.prog80pct {
 	background:linear-gradient(90deg, var(--color-progressBar-1) 0%, var(--color-progressBar-1) 80%, var(--color-progressBar-2) 80%, var(--color-progressBar-2) 100%) !important;
 }	
-button[class$="90%"] {
+.prog90pct {
 	background:linear-gradient(90deg, var(--color-progressBar-1) 0%, var(--color-progressBar-1) 90%, var(--color-progressBar-2) 90%, var(--color-progressBar-2) 100%) !important;
-}	
-button[class$="00%"] {
-	background:black !important;
 }	
 	
 .button:hover {
@@ -83,14 +111,6 @@ h1,h3,h6 {
 	background-color:blue !important;
 	color:red;
 	width:50%;
-}
-
-footer {
-	bottom: 0;
-	width: -webkit-fill-available;
-	padding: 16px;
-	position:absolute;
-	text-align:center;
 }
 
 .menuIcon {
@@ -129,20 +149,8 @@ footer {
 	transform: rotate(45deg) translate(-4px, -4px);
 }
 
-.sideNav {
-	width: 32px;
-	height: 32px;
-	margin: 0 calc(25% - 40px) 0 8px;
-	display: block;
-	float: left;
-	text-align: initial;
-	padding:0;
-	overflow:hidden;
-	transition: 0.4s;
-}
-
 .change.sideNav {
-	width: calc(25% - 8px);
+	width: 100%;
 	height: fit-content;
 	display: block;
 	float: left;
@@ -190,14 +198,15 @@ button.disabled {
 }
 
 #gameTime {
-	float: left;
+/*	float: left;
 	display: block;
 	clear: both;
-	width: 100%;
+	width: 100%;*/
 }
 
 #upgradeList {
 	display:flex;
+	flex-wrap: wrap;
 }
 
 #menu {
@@ -205,4 +214,19 @@ button.disabled {
 
 .upgradeComplete {
 	background-color: var(--color-button-upgrades-complete);
+}
+
+.atomButton {
+	height:3em;
+	width:9em;
+}
+
+.game .makerButton {
+	width:96%;
+	content-align:center;
+}
+
+.game .makerButton div {
+	display: block;
+	float:left;
 }
